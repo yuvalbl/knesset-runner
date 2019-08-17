@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route, Switch, Redirect, BrowserRouter as Router} from 'react-router-dom';
+import IntroPage from './pages/IntroPage';
+import GamePage from './pages/GamePage';
 
 const App: React.FC = () => {
+  const classes = {
+    main: {
+      dir: 'rtl',
+      display: 'flex',
+      flexDirection: 'column' as 'column',
+      alignItems: 'center'
+    }
+  };
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main dir="rtl" style={classes.main}>
+      <Router>
+        <Switch>
+          <Route path="/intro" component={IntroPage}/>
+          <Route path="/game/:character" component={GamePage}/>
+          <Redirect to="/intro"/>
+        </Switch>
+      </Router>
+    </main>
   );
-}
+};
 
 export default App;
