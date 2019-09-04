@@ -4,6 +4,8 @@
 // extract from chromium source code by @liuwayong
 // (function () {
 //     'use strict';
+
+const VOTES_PER_STEP = 100;
 /**
  * T-Rex runner.
  * @param {string} outerContainerId Outer containing element id.
@@ -11,12 +13,13 @@
  * @constructor
  * @export
  */
-function Runner(outerContainerId, opt_config = null) {
+function Runner(outerContainerId, onGameOver, opt_config = null) {
   // Singleton
   if (Runner.instance_) {
     return Runner.instance_;
   }
   Runner.instance_ = this;
+  Runner.onGameOver = onGameOver; //KNOTE: game over callback
 
   this.outerContainerEl = document.querySelector(outerContainerId);
   this.containerEl = null;
@@ -797,6 +800,9 @@ Runner.prototype = {
 
     // Reset the time clock.
     this.time = getTimeStamp();
+    if(Runner.onGameOver) {
+      Runner.onGameOver(Runner.votes);
+    }
   },
 
   stop: function () {
@@ -1277,149 +1283,149 @@ Obstacle.MAX_GAP_COEFFICIENT = 1.5;
 Obstacle.MAX_OBSTACLE_LENGTH = 3;
 
 
-  Obstacle.prototype = {
-    /**
-     * Initialise the DOM for the obstacle.
-     * @param {number} speed
-     */
-    init: function (speed) {
-      this.cloneCollisionBoxes();
+Obstacle.prototype = {
+  /**
+   * Initialise the DOM for the obstacle.
+   * @param {number} speed
+   */
+  init: function (speed) {
+    this.cloneCollisionBoxes();
 
-      // Only allow sizing if we're at the right speed.
-      if (this.size > 1 && this.typeConfig.multipleSpeed > speed) {
-        this.size = 1;
+    // Only allow sizing if we're at the right speed.
+    if (this.size > 1 && this.typeConfig.multipleSpeed > speed) {
+      this.size = 1;
+    }
+
+    this.width = this.typeConfig.width * this.size;
+
+    // Check if obstacle can be positioned at various heights.
+    if (Array.isArray(this.typeConfig.yPos)) {
+      var yPosConfig = IS_MOBILE ? this.typeConfig.yPosMobile :
+        this.typeConfig.yPos;
+      this.yPos = yPosConfig[getRandomNum(0, yPosConfig.length - 1)];
+    } else {
+      this.yPos = this.typeConfig.yPos;
+    }
+
+    this.draw();
+
+    // Make collision box adjustments,
+    // Central box is adjusted to the size as one box.
+    //      ____        ______        ________
+    //    _|   |-|    _|     |-|    _|       |-|
+    //   | |<->| |   | |<--->| |   | |<----->| |
+    //   | | 1 | |   | |  2  | |   | |   3   | |
+    //   |_|___|_|   |_|_____|_|   |_|_______|_|
+    //
+    if (this.size > 1) {
+      this.collisionBoxes[1].width = this.width - this.collisionBoxes[0].width -
+        this.collisionBoxes[2].width;
+      this.collisionBoxes[2].x = this.width - this.collisionBoxes[2].width;
+    }
+
+    // For obstacles that go at a different speed from the horizon.
+    if (this.typeConfig.speedOffset) {
+      this.speedOffset = Math.random() > 0.5 ? this.typeConfig.speedOffset :
+        -this.typeConfig.speedOffset;
+    }
+
+    this.gap = this.getGap(this.gapCoefficient, speed);
+  },
+
+  /**
+   * Draw and crop based on size.
+   */
+  draw: function () {
+    var sourceWidth = this.typeConfig.width;
+    var sourceHeight = this.typeConfig.height;
+
+    if (IS_HIDPI) {
+      sourceWidth = sourceWidth * 2;
+      sourceHeight = sourceHeight * 2;
+    }
+
+    // X position in sprite.
+    var sourceX = (sourceWidth * this.size) * (0.5 * (this.size - 1)) +
+      this.spritePos.x;
+
+    // Animation frames.
+    if (this.currentFrame > 0) {
+      sourceX += sourceWidth * this.currentFrame;
+    }
+
+    this.canvasCtx.drawImage(Runner.imageSprite,
+      sourceX, this.spritePos.y,
+      sourceWidth * this.size, sourceHeight,
+      this.xPos, this.yPos,
+      this.typeConfig.width * this.size, this.typeConfig.height);
+  },
+
+  /**
+   * Obstacle frame update.
+   * @param {number} deltaTime
+   * @param {number} speed
+   */
+  update: function (deltaTime, speed) {
+    if (!this.remove) {
+      if (this.typeConfig.speedOffset) {
+        speed += this.speedOffset;
       }
+      this.xPos -= Math.floor((speed * FPS / 1000) * deltaTime);
 
-      this.width = this.typeConfig.width * this.size;
-
-      // Check if obstacle can be positioned at various heights.
-      if (Array.isArray(this.typeConfig.yPos)) {
-        var yPosConfig = IS_MOBILE ? this.typeConfig.yPosMobile :
-          this.typeConfig.yPos;
-        this.yPos = yPosConfig[getRandomNum(0, yPosConfig.length - 1)];
-      } else {
-        this.yPos = this.typeConfig.yPos;
+      // Update frame
+      if (this.typeConfig.numFrames) {
+        this.timer += deltaTime;
+        if (this.timer >= this.typeConfig.frameRate) {
+          this.currentFrame =
+            this.currentFrame == this.typeConfig.numFrames - 1 ?
+              0 : this.currentFrame + 1;
+          this.timer = 0;
+        }
       }
-
       this.draw();
 
-      // Make collision box adjustments,
-      // Central box is adjusted to the size as one box.
-      //      ____        ______        ________
-      //    _|   |-|    _|     |-|    _|       |-|
-      //   | |<->| |   | |<--->| |   | |<----->| |
-      //   | | 1 | |   | |  2  | |   | |   3   | |
-      //   |_|___|_|   |_|_____|_|   |_|_______|_|
-      //
-      if (this.size > 1) {
-        this.collisionBoxes[1].width = this.width - this.collisionBoxes[0].width -
-          this.collisionBoxes[2].width;
-        this.collisionBoxes[2].x = this.width - this.collisionBoxes[2].width;
-      }
-
-      // For obstacles that go at a different speed from the horizon.
-      if (this.typeConfig.speedOffset) {
-        this.speedOffset = Math.random() > 0.5 ? this.typeConfig.speedOffset :
-          -this.typeConfig.speedOffset;
-      }
-
-      this.gap = this.getGap(this.gapCoefficient, speed);
-    },
-
-    /**
-     * Draw and crop based on size.
-     */
-    draw: function () {
-      var sourceWidth = this.typeConfig.width;
-      var sourceHeight = this.typeConfig.height;
-
-      if (IS_HIDPI) {
-        sourceWidth = sourceWidth * 2;
-        sourceHeight = sourceHeight * 2;
-      }
-
-      // X position in sprite.
-      var sourceX = (sourceWidth * this.size) * (0.5 * (this.size - 1)) +
-        this.spritePos.x;
-
-      // Animation frames.
-      if (this.currentFrame > 0) {
-        sourceX += sourceWidth * this.currentFrame;
-      }
-
-      this.canvasCtx.drawImage(Runner.imageSprite,
-        sourceX, this.spritePos.y,
-        sourceWidth * this.size, sourceHeight,
-        this.xPos, this.yPos,
-        this.typeConfig.width * this.size, this.typeConfig.height);
-    },
-
-    /**
-     * Obstacle frame update.
-     * @param {number} deltaTime
-     * @param {number} speed
-     */
-    update: function (deltaTime, speed) {
-      if (!this.remove) {
-        if (this.typeConfig.speedOffset) {
-          speed += this.speedOffset;
-        }
-        this.xPos -= Math.floor((speed * FPS / 1000) * deltaTime);
-
-        // Update frame
-        if (this.typeConfig.numFrames) {
-          this.timer += deltaTime;
-          if (this.timer >= this.typeConfig.frameRate) {
-            this.currentFrame =
-              this.currentFrame == this.typeConfig.numFrames - 1 ?
-                0 : this.currentFrame + 1;
-            this.timer = 0;
-          }
-        }
-        this.draw();
-
-        if (!this.isVisible()) {
-          this.remove = true;
-        }
-      }
-    },
-
-    /**
-     * Calculate a random gap size.
-     * - Minimum gap gets wider as speed increses
-     * @param {number} gapCoefficient
-     * @param {number} speed
-     * @return {number} The gap size.
-     */
-    getGap: function (gapCoefficient, speed) {
-      var minGap = Math.round(this.width * speed +
-        this.typeConfig.minGap * gapCoefficient);
-      var maxGap = Math.round(minGap * Obstacle.MAX_GAP_COEFFICIENT);
-      return getRandomNum(minGap, maxGap);
-    },
-
-    /**
-     * Check if obstacle is visible.
-     * @return {boolean} Whether the obstacle is in the game area.
-     */
-    isVisible: function () {
-      return this.xPos + this.width > 0;
-    },
-
-    /**
-     * Make a copy of the collision boxes, since these will change based on
-     * obstacle type and size.
-     */
-    cloneCollisionBoxes: function () {
-      var collisionBoxes = this.typeConfig.collisionBoxes;
-
-      for (var i = collisionBoxes.length - 1; i >= 0; i--) {
-        this.collisionBoxes[i] = new CollisionBox(collisionBoxes[i].x,
-          collisionBoxes[i].y, collisionBoxes[i].width,
-          collisionBoxes[i].height);
+      if (!this.isVisible()) {
+        this.remove = true;
       }
     }
-  };
+  },
+
+  /**
+   * Calculate a random gap size.
+   * - Minimum gap gets wider as speed increses
+   * @param {number} gapCoefficient
+   * @param {number} speed
+   * @return {number} The gap size.
+   */
+  getGap: function (gapCoefficient, speed) {
+    var minGap = Math.round(this.width * speed +
+      this.typeConfig.minGap * gapCoefficient);
+    var maxGap = Math.round(minGap * Obstacle.MAX_GAP_COEFFICIENT);
+    return getRandomNum(minGap, maxGap);
+  },
+
+  /**
+   * Check if obstacle is visible.
+   * @return {boolean} Whether the obstacle is in the game area.
+   */
+  isVisible: function () {
+    return this.xPos + this.width > 0;
+  },
+
+  /**
+   * Make a copy of the collision boxes, since these will change based on
+   * obstacle type and size.
+   */
+  cloneCollisionBoxes: function () {
+    var collisionBoxes = this.typeConfig.collisionBoxes;
+
+    for (var i = collisionBoxes.length - 1; i >= 0; i--) {
+      this.collisionBoxes[i] = new CollisionBox(collisionBoxes[i].x,
+        collisionBoxes[i].y, collisionBoxes[i].width,
+        collisionBoxes[i].height);
+    }
+  }
+};
 
 
 /**
@@ -1904,7 +1910,7 @@ DistanceMeter.yPos = [0, 13, 27, 40, 53, 67, 80, 93, 107, 120];
  */
 DistanceMeter.config = {
   // Number of digits.
-  MAX_DISTANCE_UNITS: 5,
+  MAX_DISTANCE_UNITS: 7,
 
   // Distance that causes achievement animation.
   ACHIEVEMENT_DISTANCE: 100,
@@ -2035,8 +2041,9 @@ DistanceMeter.prototype = {
         }
 
         // Create a string representation of the distance with leading 0.
-        var distanceStr = (this.defaultString +
-          distance).substr(-this.maxScoreUnits);
+        // KNOTE: multiply step by VOTES_PER_STEP
+        Runner.votes = distance * VOTES_PER_STEP;
+        var distanceStr = (this.defaultString + Runner.votes).substr(-this.maxScoreUnits);
         this.digits = distanceStr.split('');
       } else {
         this.digits = this.defaultString.split('');
@@ -2075,12 +2082,13 @@ DistanceMeter.prototype = {
    * Draw the high score.
    */
   drawHighScore: function () {
-    this.canvasCtx.save();
-    this.canvasCtx.globalAlpha = .8;
-    for (var i = this.highScore.length - 1; i >= 0; i--) {
-      this.draw(i, parseInt(this.highScore[i], 10), true);
-    }
-    this.canvasCtx.restore();
+    // todo?
+    // this.canvasCtx.save();
+    // this.canvasCtx.globalAlpha = .8;
+    // for (var i = this.highScore.length - 1; i >= 0; i--) {
+    //   this.draw(i, parseInt(this.highScore[i], 10), true);
+    // }
+    // this.canvasCtx.restore();
   },
 
   /**

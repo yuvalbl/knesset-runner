@@ -3,6 +3,7 @@ import './App.css';
 import {Route, Switch, Redirect, BrowserRouter as Router} from 'react-router-dom';
 import IntroPage from './pages/IntroPage';
 import GamePage from './pages/GamePage';
+import CreditsPage from './pages/CreditsPage';
 
 const App: React.FC = () => {
   const classes = {
@@ -19,6 +20,7 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route path="/intro" component={IntroPage}/>
+          <Route path="/credits" component={CreditsPage}/>
           <Route path="/game/:character" component={GamePage}/>
           <Redirect to="/intro"/>
         </Switch>

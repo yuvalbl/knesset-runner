@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import SelectionComponent from '../components/SelectionComponent';
 
 interface IProps {
@@ -16,9 +17,12 @@ const IntroPage: React.FC<IProps> = () => {
           :
           <div>
             <p>
-              Knesset Runner is just 4 fun
+              Knesset Runner
             </p>
-            <button onClick={() => setShowPlayerSelection(true)}>OK</button>
+            <button onClick={() => setShowPlayerSelection(true)}>Play</button>
+            <Link to="/credits">
+              <button>Credits</button>
+            </Link>
           </div>
       }
     </div>

@@ -5,20 +5,27 @@ interface IProps {
 }
 
 const GamePage: React.FC<IProps> = () => {
+  const styles = {
+    container: {
+      width: '100%',
+      padding: 5
+    },
+    messageBox: {
+      textAlign: 'center'  as 'center'
+    }
+  };
   const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/bibi/100-offline-sprite.png`;
   const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/bibi/200-offline-sprite.png`;
-  // const start = () => {
-  //
-  // }
+
   useEffect(() => {
-    new Runner('.interstitial-wrapper');
-    //    // @ts-ignore
-    //     new window.Runner('.interstitial-wrapper');
+    new Runner('.interstitial-wrapper', (votes: any) => {
+      console.log(votes);
+    });
   }, []);
   
   return (
-    <div id="t" className="offline">
-      <div id="messageBox" className="sendmessage">
+    <div id="t" className="offline" style={styles.container}>
+      <div id="messageBox" className="sendmessage" style={styles.messageBox}>
         <h1>Press Space to start</h1>
       </div>
       <div id="main-frame-error" className="interstitial-wrapper">
