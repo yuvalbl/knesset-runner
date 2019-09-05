@@ -7,6 +7,7 @@ import CreditsPage from './pages/CreditsPage';
 import {backgroundPattern} from './assets';
 import {palette} from './styles';
 import SelectPage from './pages/SelectPage';
+import EndGamePage from './pages/EndGamePage';
 
 const App: React.FC = () => {
   const classes = {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
           <Route path="/select" component={SelectPage}/>
           <Route path="/credits" component={CreditsPage}/>
           <Route path="/game/:character" component={GamePage}/>
+          <Route path="/game-end/:character/:votes" component={EndGamePage}/>
           <Redirect to="/intro"/>
         </Switch>
       </Router>

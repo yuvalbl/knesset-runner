@@ -1,36 +1,69 @@
-import React from 'react';
-import {Link as RouterLink} from 'react-router-dom';
-import StartHeader from '../components/StartHeader';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import ImageButton, {ButtonType} from '../components/ImageButton';
+import {bibiColor, bibiGrayScale, buttonYalla, gantzColor, gantzGrayScale, selectCharacterTitle} from '../assets';
 
-const characters = ['bibi', 'barak'];
+const characters = [
+  {name: 'bibi', image: bibiGrayScale, imageActive: bibiColor},
+  {name: 'gantz', image: gantzGrayScale, imageActive: gantzColor},
+];
 
 interface IProps {
 }
 
 const SelectPage: React.FC<IProps> = () => {
-  const classes = {
+  const [selected, setSelected] = useState();
+  
+  const styles = {
     container: {
-      display: 'flex'
+      display: 'flex',
+      flexDirection: 'column' as 'column',
+      alignItems: 'space-between',
+      // width: '100%'
     },
-    card: {
-      height: 100,
-      width: '100%',
+    header: {
+      margin: '40px 0 20px',
+    },
+    charactersContainer: {
+      display: 'flex',
+      flexWrap: 'wrap' as 'wrap',
+      justifyContent: 'space-between',
+    },
+    character: {
+      flex: '0, 1 49%',
+      cursor: 'pointer'
+    },
+    yallaButton: {
+      visibility: selected ? 'visible' as 'visible' : 'hidden' as 'hidden',
       cursor: 'pointer'
     }
   };
   
+  const selectCharacter = (character: any) => {
+    setSelected(character);
+  };
+  
   return (
-    <div>
-      <StartHeader/>
-      {
-        characters.map((character: string, i: number) => (
-          <RouterLink to={`/game/${character}`} key={i}>
-            <button style={classes.card}>
-              Play as {character}
-            </button>
-          </RouterLink>
-        ))
-      }
+    <div style={styles.container}>
+      <header style={styles.header}>
+        <img src={selectCharacterTitle} alt=""/>
+      </header>
+      <div style={styles.charactersContainer}>
+        {
+          characters.map((c) => (
+            <article style={styles.character} key={c.name}>
+              <ImageButton type={ButtonType.Character}
+                           imageSrc={(c === selected) ? c.imageActive : c.image}
+                           onClick={selectCharacter.bind(null, c)}/>
+            </article>
+          ))
+        }
+      </div>
+      <div style={styles.yallaButton}>
+        <Link to={`/game/${selected ? selected.name : ''}`}>
+          <ImageButton imageSrc={buttonYalla}/>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Runner from '../runner/runner';
+import {RouteComponentProps} from 'react-router';
+import { Redirect } from 'react-router-dom'
 
 // from original TRunner code
 const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
@@ -8,9 +10,13 @@ const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
 interface IProps {
 }
 
-const GamePage: React.FC<IProps> = () => {
+export type RParams = { character: string };
+
+const GamePage: React.FC<IProps & RouteComponentProps<RParams>> = ({match}) => {
+  const character = match.params.character;
   const [started, setStarted] = useState(false);
-  
+  const [votes, setVotes] = useState(-1);
+
   const styles = {
     container: {
       width: '100%',
@@ -22,16 +28,21 @@ const GamePage: React.FC<IProps> = () => {
       textAlign: 'center'  as 'center'
     }
   };
-  const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/bibi/100-offline-sprite.png`;
-  const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/bibi/200-offline-sprite.png`;
+  const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/${character}-100-sprite.png`;
+  const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/${character}-200-sprite.png`;
 
   useEffect(() => {
     new Runner('.interstitial-wrapper',
       () => setStarted(true),
-      (votes: any) => console.log(votes));
+      (votes: any) => setVotes(votes));
   }, []);
   
   const title = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
+  
+  if(votes > 0) {
+    const url = `/game-end/${character}/${votes}`;
+    return (<Redirect to={url}/>);
+  }
   
   return (
     <div id="t" className="offline" style={styles.container}>

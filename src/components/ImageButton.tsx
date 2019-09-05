@@ -16,8 +16,8 @@ interface IProps {
 const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, extraStyles, onClick}) => {
   const styles = {
     button: {
-      height: 54, // default
-      width: 300, // default
+      height: 35, // default
+      width: 212, // default
       border: 0,
       background: 0,
       outline: 0,
@@ -29,12 +29,11 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
   // small / character styles
   switch (type) {
     case ButtonType.Small:
-      styles.button.height = 54;
-      styles.button.width = 140;
+      styles.button.width = 99;
       break;
     case ButtonType.Character:
-      styles.button.height = 120;
-      styles.button.width = 120;
+      styles.button.height = 100;
+      styles.button.width = 100;
       break;
     case ButtonType.Standard:
     default:

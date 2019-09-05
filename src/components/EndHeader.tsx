@@ -1,16 +1,16 @@
 import React from 'react';
-import {gameTitleStart} from '../assets';
+import {gameTitleEnd} from '../assets';
 
 interface IProps {
 }
 
-const StartHeader: React.FC<IProps> = () => {
+const EndHeader: React.FC<IProps> = () => {
   const styles = {
     header: {
       width: '100%',
       display: 'flex',
       justifyContent: 'center' as 'center',
-      margin: '85px 0'
+      margin: '50px 0'
     },
     image: {
       flex: 1
@@ -19,9 +19,9 @@ const StartHeader: React.FC<IProps> = () => {
   
   return (
     <header style={styles.header}>
-      <img style={styles.image} src={gameTitleStart} alt=""/>
+      <img style={styles.image} src={gameTitleEnd} alt=""/>
     </header>
   );
 };
 
-export default StartHeader;
+export default EndHeader;
