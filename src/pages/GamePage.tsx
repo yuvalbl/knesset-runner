@@ -1,16 +1,24 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Runner from '../runner/runner';
+
+// from original TRunner code
+const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
+const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
 
 interface IProps {
 }
 
 const GamePage: React.FC<IProps> = () => {
+  const [started, setStarted] = useState(false);
+  
   const styles = {
     container: {
       width: '100%',
+      maxWidth: 600,
       padding: 5
     },
     messageBox: {
+      height: 70,
       textAlign: 'center'  as 'center'
     }
   };
@@ -18,15 +26,17 @@ const GamePage: React.FC<IProps> = () => {
   const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/bibi/200-offline-sprite.png`;
 
   useEffect(() => {
-    new Runner('.interstitial-wrapper', (votes: any) => {
-      console.log(votes);
-    });
+    new Runner('.interstitial-wrapper',
+      () => setStarted(true),
+      (votes: any) => console.log(votes));
   }, []);
+  
+  const title = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
   
   return (
     <div id="t" className="offline" style={styles.container}>
       <div id="messageBox" className="sendmessage" style={styles.messageBox}>
-        <h1>Press Space to start</h1>
+        <h1>{!started && title}</h1>
       </div>
       <div id="main-frame-error" className="interstitial-wrapper">
         <div id="main-content">

@@ -9,16 +9,19 @@ const VOTES_PER_STEP = 100;
 /**
  * T-Rex runner.
  * @param {string} outerContainerId Outer containing element id.
+ * @param {function} onGameStart callback.
+ * @param {function} onGameOver callback.
  * @param {Object} opt_config
  * @constructor
  * @export
  */
-function Runner(outerContainerId, onGameOver, opt_config = null) {
+function Runner(outerContainerId, onGameStart, onGameOver, opt_config = null) {
   // Singleton
   if (Runner.instance_) {
     return Runner.instance_;
   }
   Runner.instance_ = this;
+  Runner.onGameStart = onGameStart; //KNOTE: game start callback
   Runner.onGameOver = onGameOver; //KNOTE: game over callback
 
   this.outerContainerEl = document.querySelector(outerContainerId);
@@ -492,6 +495,7 @@ Runner.prototype = {
     } else if (this.crashed) {
       this.restart();
     }
+    Runner.onGameStart();
   },
 
 

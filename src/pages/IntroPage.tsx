@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import SelectionComponent from '../components/SelectionComponent';
+import ButtonsPanel from '../components/ButtonsPanel';
+import StartHeader from '../components/StartHeader';
 
 interface IProps {
 }
@@ -11,20 +11,8 @@ const IntroPage: React.FC<IProps> = () => {
   
   return (
     <div>
-      {
-        showPlayerSelection
-          ? <SelectionComponent/>
-          :
-          <div>
-            <p>
-              Knesset Runner
-            </p>
-            <button onClick={() => setShowPlayerSelection(true)}>Play</button>
-            <Link to="/credits">
-              <button>Credits</button>
-            </Link>
-          </div>
-      }
+      <StartHeader/>
+      <ButtonsPanel/>
     </div>
   );
 };
