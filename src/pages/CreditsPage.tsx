@@ -1,18 +1,20 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {buttonNewGame, creditTitle} from '../assets';
+import ImageButton from '../components/ImageButton';
+import {useStore} from '../store/storeConfig';
 
 interface IProps {
 }
 
 const CreditsPage: React.FC<IProps> = () => {
+  const store = useStore();
+  
   return (
     <div>
       <p>
-        חמודי ובניו
+        <img src={creditTitle} alt=""/>
       </p>
-      <Link to="/intro">
-        <button>בוא נשחק כבר</button>
-      </Link>
+      <ImageButton imageSrc={buttonNewGame} onClick={() => store.setActivePage('intro')}/>
     </div>
   );
 };

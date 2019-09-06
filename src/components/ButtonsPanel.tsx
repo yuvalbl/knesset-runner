@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import ImageButton, {ButtonType} from './ImageButton';
 import {
   buttonCredits,
   buttonNewGame,
+  buttonReplaceCharacter,
   buttonReset,
   buttonShare,
   buttonShareFacebook,
   buttonShareTwitter
 } from '../assets';
+import {useStore} from '../store/storeConfig';
 
 interface IProps {
-  character?: string
 }
 
-const ButtonsPanel: React.FC<IProps> = ({character}) => {
-  const [showSocialButtons, setShowSocialButtons] = useState(false)
+const ButtonsPanel: React.FC<IProps> = () => {
+  const [showSocialButtons, setShowSocialButtons] = useState(false);
+  const store = useStore();
+  const character = store.activeCharacter;
   
   const styles = {
     container: {
@@ -29,15 +31,14 @@ const ButtonsPanel: React.FC<IProps> = ({character}) => {
   };
   
   const playFirst = (
-    <Link to="/select">
-      <ImageButton imageSrc={buttonNewGame}/>
-    </Link>
+      <ImageButton imageSrc={buttonNewGame} onClick={() => store.setActivePage('select')}/>
   );
   
   const playAgain = (
-    <Link to={`/game/${character}`}>
-      <ImageButton imageSrc={buttonReset}/>
-    </Link>
+    <>
+      <ImageButton imageSrc={buttonReset} onClick={() => store.setActivePage('game')}/>
+      <ImageButton imageSrc={buttonReplaceCharacter} onClick={() => store.setActivePage('select')}/>
+    </>
   );
   
   const socialMediaButtons = (
@@ -54,9 +55,7 @@ const ButtonsPanel: React.FC<IProps> = ({character}) => {
           ? playAgain
           : playFirst
       }
-      <Link to="/credits">
-        <ImageButton imageSrc={buttonCredits}/>
-      </Link>
+      <ImageButton imageSrc={buttonCredits} onClick={() => store.setActivePage('credits')}/>
       {
         showSocialButtons
           ? socialMediaButtons

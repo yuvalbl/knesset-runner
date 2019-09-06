@@ -5,8 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
-  font-size: 20px;
+  direction: rtl;
 }
 
 code {
@@ -14,7 +13,11 @@ code {
     monospace;
 }
 
+html, body {
+  min-height: 100vh;
+}
 
-html, body, #root {
+#root {
+  min-height: 100vh;
   height: 100%;
 }

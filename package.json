@@ -7,9 +7,10 @@
     "@types/node": "12.7.2",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.8.5",
+    "mobx": "^5.13.0",
+    "mobx-react-lite": "^1.4.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "typescript": "3.5.3"
   },
@@ -17,7 +18,7 @@
     "predeploy": "npm run build",
     "deploy": "firebase deploy",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "NODE_ENV=production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -37,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^4.3.4"
+    "@types/react-router-dom": "^4.3.4",
+    "eslint-plugin-react-hooks": "^2.0.1"
   }
 }

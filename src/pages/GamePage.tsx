@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Runner from '../runner/runner';
-import {RouteComponentProps} from 'react-router';
-import { Redirect } from 'react-router-dom'
+import {useStore} from '../store/storeConfig';
+import {pressStartTitle} from '../assets';
 
 // from original TRunner code
 const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
@@ -12,14 +12,15 @@ interface IProps {
 
 export type RParams = { character: string };
 
-const GamePage: React.FC<IProps & RouteComponentProps<RParams>> = ({match}) => {
-  const character = match.params.character;
+const GamePage: React.FC<IProps> = () => {
   const [started, setStarted] = useState(false);
-  const [votes, setVotes] = useState(-1);
-
+  const store = useStore();
+  const characterName = (store.activeCharacter) ? store.activeCharacter.name : null;
+  let runner;
+  
   const styles = {
     container: {
-      width: '100%',
+      width: '94%',
       maxWidth: 600,
       padding: 5
     },
@@ -28,26 +29,33 @@ const GamePage: React.FC<IProps & RouteComponentProps<RParams>> = ({match}) => {
       textAlign: 'center'  as 'center'
     }
   };
-  const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/${character}-100-sprite.png`;
-  const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/${character}-200-sprite.png`;
-
+  const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/${characterName}-100-sprite.png`;
+  const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/${characterName}-200-sprite.png`;
+  
+  const startGame = () => {
+    setStarted(true)
+  };
+  
+  const endGame = (votes: number) => {
+    store.setVotes(votes);
+    store.setActivePage('game-end');
+  };
+  
   useEffect(() => {
-    new Runner('.interstitial-wrapper',
-      () => setStarted(true),
-      (votes: any) => setVotes(votes));
+    runner = new Runner('.interstitial-wrapper', startGame, endGame);
   }, []);
   
-  const title = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
-  
-  if(votes > 0) {
-    const url = `/game-end/${character}/${votes}`;
-    return (<Redirect to={url}/>);
-  }
-  
+  const titleAlt = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
+
   return (
     <div id="t" className="offline" style={styles.container}>
       <div id="messageBox" className="sendmessage" style={styles.messageBox}>
-        <h1>{!started && title}</h1>
+        <h1>
+          {
+            !started &&
+            <img src={pressStartTitle} alt="titleAlt"/>
+          }
+        </h1>
       </div>
       <div id="main-frame-error" className="interstitial-wrapper">
         <div id="main-content">

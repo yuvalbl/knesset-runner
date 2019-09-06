@@ -10,7 +10,7 @@ const EndHeader: React.FC<IProps> = () => {
       width: '100%',
       display: 'flex',
       justifyContent: 'center' as 'center',
-      margin: '50px 0'
+      margin: '50px 0 30px'
     },
     image: {
       flex: 1

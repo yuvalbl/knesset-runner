@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ButtonsPanel from '../components/ButtonsPanel';
 import StartHeader from '../components/StartHeader';
 
