@@ -7,7 +7,15 @@
 
 const VOTES_PER_STEP = 100;
 const rootContainer = document.getElementById('root');
-console.log(rootContainer);
+let usingAlternativeSprite = false;
+// KNOTE - toggle sprite
+function toggleSprite() {
+  usingAlternativeSprite = !usingAlternativeSprite;
+  const activeSpritePrefix = usingAlternativeSprite ? 'offline' : 'alternative';
+  const activeSpriteId = `${activeSpritePrefix}-resources-${IS_HIDPI ? '2' : '1'}x`;
+  Runner.imageSprite =  document.getElementById(activeSpriteId);
+}
+
 /**
  * T-Rex runner.
  * @param {string} outerContainerId Outer containing element id.
@@ -17,7 +25,7 @@ console.log(rootContainer);
  * @constructor
  * @export
  */
-function Runner(outerContainerId, onGameStart, onGameOver, opt_config = null) {
+function Runner(outerContainerId, onGameStart, onGameOver, spriteRotation, opt_config = null) {
   // Singleton
   // KNOTE: remove for restarting game
   // if (Runner.instance_) {
@@ -26,6 +34,7 @@ function Runner(outerContainerId, onGameStart, onGameOver, opt_config = null) {
   Runner.instance_ = this;
   Runner.onGameStart = onGameStart; //KNOTE: game start callback
   Runner.onGameOver = onGameOver; //KNOTE: game over callback
+  Runner.spriteRotation = spriteRotation; //KNOTE: use sprite toggling after  every achievement?
 
   this.outerContainerEl = document.querySelector(outerContainerId);
   this.containerEl = null;
@@ -288,6 +297,8 @@ Runner.prototype = {
         case 'SPEED':
           this.setSpeed(value);
           break;
+        default:
+          break;
       }
     }
   },
@@ -314,7 +325,7 @@ Runner.prototype = {
     }
   },
 
-  /**
+    /**
    * Load and decode base 64 encoded sounds.
    */
   loadSounds: function () {
@@ -631,6 +642,8 @@ Runner.prototype = {
         case events.TOUCHEND:
         case events.MOUSEUP:
           this.onKeyUp(e);
+          break;
+        default:
           break;
       }
     }.bind(this))(e.type, Runner.events);
@@ -2050,8 +2063,11 @@ DistanceMeter.prototype = {
           this.acheivement = true;
           this.flashTimer = 0;
           playSound = true;
+          // KNOTE: on rotation, toggle sprint on each achievement
+          if(Runner.spriteRotation) {
+            toggleSprite();
+          }
         }
-
         // Create a string representation of the distance with leading 0.
         // KNOTE: multiply step by VOTES_PER_STEP
         Runner.votes = distance * VOTES_PER_STEP;

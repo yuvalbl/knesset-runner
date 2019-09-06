@@ -43,7 +43,7 @@ const SelectPage: React.FC<IProps> = () => {
       display: 'flex',
       flexWrap: 'wrap' as 'wrap',
       justifyContent: 'space-between',
-      maxWidth: 210
+      maxWidth: 250
     },
     character: {
       flex: '0, 1 49%',

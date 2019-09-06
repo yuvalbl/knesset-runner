@@ -34,3 +34,8 @@ p {
   margin-inline-start: 0;
   margin-inline-end: 0;
 }
+
+a, a:hover, a:active, a:visited{
+  color: #61dafb;
+  text-decoration: none;
+}
