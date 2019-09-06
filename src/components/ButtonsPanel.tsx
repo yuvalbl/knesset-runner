@@ -18,6 +18,8 @@ const ButtonsPanel: React.FC<IProps> = () => {
   const [showSocialButtons, setShowSocialButtons] = useState(false);
   const store = useStore();
   const character = store.activeCharacter;
+  const shareUrl = window.location.href;
+  const shareText = 'רצים לכנסת 2019!';
   
   const styles = {
     container: {
@@ -43,8 +45,14 @@ const ButtonsPanel: React.FC<IProps> = () => {
   
   const socialMediaButtons = (
     <div style={styles.socialMedia}>
-      <ImageButton imageSrc={buttonShareFacebook} type={ButtonType.Small}/>
-      <ImageButton imageSrc={buttonShareTwitter} type={ButtonType.Small}/>
+      <a target="_blank" rel="noopener noreferrer"
+         href={encodeURI(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`)}>
+        <ImageButton imageSrc={buttonShareFacebook} type={ButtonType.Small}/>
+      </a>
+      <a target="_blank" rel="noopener noreferrer"
+         href={encodeURI(`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`)}>
+        <ImageButton imageSrc={buttonShareTwitter} type={ButtonType.Small}/>
+      </a>
     </div>
   );
   
