@@ -13,9 +13,6 @@ export default class Store {
   @observable activeCharacter: ICharacter | null = null;
   @observable votes: number = 0;
   
-  constructor() {
-  }
-  
   @action
   setVotes(votes: number) {
     this.votes = votes;

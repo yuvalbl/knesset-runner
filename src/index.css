@@ -1,11 +1,17 @@
+@font-face {
+  font-family: 'HairLarge';
+  src: url('./assets/hairLarge.ttf');
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'HairLarge', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   direction: rtl;
+  font-size: 14px;
 }
 
 code {
@@ -20,4 +26,11 @@ html, body {
 #root {
   min-height: 100vh;
   height: 100%;
+}
+
+p {
+  margin-block-start: .7em;
+  margin-block-end: .7em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }

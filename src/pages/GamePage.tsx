@@ -53,7 +53,7 @@ const GamePage: React.FC<IProps> = () => {
         <h1>
           {
             !started &&
-            <img src={pressStartTitle} alt="titleAlt"/>
+            <img src={pressStartTitle} alt={titleAlt}/>
           }
         </h1>
       </div>

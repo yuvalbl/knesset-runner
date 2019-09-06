@@ -1,6 +1,14 @@
 import React from 'react';
 import ImageButton, {ButtonType} from '../components/ImageButton';
-import {bibiColor, bibiGrayScale, buttonYalla, gantzColor, gantzGrayScale, selectCharacterTitle} from '../assets';
+import {
+  bibiColor,
+  bibiGrayScale,
+  buttonYalla, deriColor,
+  deriGrayScale,
+  gantzColor,
+  gantzGrayScale, libermanColor, libermanGrayScale, peretzColor, peretzGrayScale,
+  selectCharacterTitle, shafirColor, shafirGrayScale, shakedColor, shakedGrayScale, udaColor, udaGrayScale
+} from '../assets';
 import {useStore} from '../store/storeConfig';
 import {ICharacter} from '../store/store';
 import {useObserver} from 'mobx-react-lite';
@@ -8,6 +16,12 @@ import {useObserver} from 'mobx-react-lite';
 const characters: Array<ICharacter> = [
   {name: 'bibi', image: bibiGrayScale, imageActive: bibiColor},
   {name: 'gantz', image: gantzGrayScale, imageActive: gantzColor},
+  {name: 'deri', image: deriGrayScale, imageActive: deriColor},
+  {name: 'liberman', image: libermanGrayScale, imageActive: libermanColor},
+  {name: 'peretz', image: peretzGrayScale, imageActive: peretzColor},
+  {name: 'shafir', image: shafirGrayScale, imageActive: shafirColor},
+  {name: 'shaked', image: shakedGrayScale, imageActive: shakedColor},
+  {name: 'uda', image: udaGrayScale, imageActive: udaColor},
 ];
 
 interface IProps {
@@ -29,6 +43,7 @@ const SelectPage: React.FC<IProps> = () => {
       display: 'flex',
       flexWrap: 'wrap' as 'wrap',
       justifyContent: 'space-between',
+      maxWidth: 210
     },
     character: {
       flex: '0, 1 49%',

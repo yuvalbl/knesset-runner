@@ -1,6 +1,5 @@
-const palette = {
+export const palette = {
   background:  '#2FDDFC',
-  actionBlue:  '#0033B8'
+  actionBlue:  '#0033B8',
+  messageBackground:  'white'
 };
-
-export {palette}

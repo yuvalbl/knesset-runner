@@ -107,7 +107,7 @@ var IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
 var IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
 
 /** @const */
-var IS_TOUCH_ENABLED = 'ontouchstart' in window;
+// var IS_TOUCH_ENABLED = 'ontouchstart' in window;
 
 /**
  * Default game configuration.
@@ -1121,7 +1121,7 @@ GameOverPanel.prototype = {
  * @return {Array<CollisionBox>}
  */
 function checkForCollision(obstacle, tRex, opt_canvasCtx) {
-  var obstacleBoxXPos = Runner.defaultDimensions.WIDTH + obstacle.xPos;
+  // var obstacleBoxXPos = Runner.defaultDimensions.WIDTH + obstacle.xPos;
 
   // Adjustments are made to the bounding box as there is a 1 pixel white
   // border around the t-rex and obstacles.
@@ -1211,11 +1211,11 @@ function drawCollisionBoxes(canvasCtx, tRexBox, obstacleBox) {
  */
 function boxCompare(tRexBox, obstacleBox) {
   var crashed = false;
-  var tRexBoxX = tRexBox.x;
-  var tRexBoxY = tRexBox.y;
+  // var tRexBoxX = tRexBox.x;
+  // var tRexBoxY = tRexBox.y;
 
   var obstacleBoxX = obstacleBox.x;
-  var obstacleBoxY = obstacleBox.y;
+  // var obstacleBoxY = obstacleBox.y;
 
   // Axis-Aligned Bounding Box method.
   if (tRexBox.x < obstacleBoxX + obstacleBox.width &&
