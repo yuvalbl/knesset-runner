@@ -42,15 +42,26 @@ const CreditsPage: React.FC<IProps> = () => {
           <p>
             גיל כהן הוא מעצב, שחקן ואמן אורז.
             הוא אוהב לרקוד לצלילי אה-גה-דו, לטוס להופעות של כוכבי לכת ולקרוא לילד בשמו.
-            אפשר להטריד אותו בפייסבוק ובאינסטגרם או לצפות במערכונים שהוא מעלה ליוטיוב.
+            אפשר להטריד אותו ב
+            <a href="http://facebook.com/grandcohen" target="_blank" rel="noopener noreferrer">פייסבוק</a>            וב
+            <a href="http://instagram.com/flying_eggplant" target="_blank" rel="noopener noreferrer">אינסטגרם</a> או
+            לצפות במערכונים שהוא מעלה ל
+            <a href="http://youtube.com/gilcohen1" target="_blank" rel="noopener noreferrer">יוטיוב</a>
+            .
           </p>
           <p>
             יובל בר לוי הוא שאמן מתקופת אגוז המוסקט. הוא מנשק קמעות ושוחה חתירה ללא מצופים.
-            בשאר הזמן הוא עוסק בתכנות אמנותי חצי אולימפי, ומטריל מלפפוני ים בפייסבוק.
+            בשאר הזמן הוא&nbsp;
+            <a href="https://www.linkedin.com/in/yuval-bar-levi-70677748/" target="_blank" rel="noopener noreferrer">עוסק</a>  ב
+            <a href="https://github.com/yuvalbl" target="_blank" rel="noopener noreferrer">תכנות אמנותי</a>             חצי אולימפי, ומטריל מלפפוני ים ב
+            <a href="https://www.facebook.com/yuval.b.levy" target="_blank" rel="noopener noreferrer">פייסבוק</a>
+            .
           </p>
           <p>
-            תודות נוספות:
-            בורא עולם המים בטורונטו, ז׳ן קלוד ואן דם המכבים והמעצב מאיר סדן (העוקץ) שיצר את הפונט הנפלא הזה.
+            תודות נוספות:<br/>
+            בורא עולם המים בטורונטו, ז׳ן קלוד ואן דם המכבים והמעצב מאיר סדן (
+            <a href="https://oketz.com/" target="_blank" rel="noopener noreferrer">העוקץ</a>
+            ) שיצר את הפונט הנפלא הזה.
           </p>
         </div>
       </MessageBox>
