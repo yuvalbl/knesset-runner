@@ -45,7 +45,7 @@ const GamePage: React.FC<IProps> = () => {
   
   useEffect(() => {
     new Runner('.interstitial-wrapper', startGame, endGame, spriteRotation);
-  });
+  }, [startGame, endGame]);
   
   const titleAlt = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
 
