@@ -17,7 +17,23 @@ const EndGamePage: React.FC<IProps> = () => {
       minWidth: '80vw',
       marginBottom: 30,
       textAlign: 'center' as 'center',
-    }
+    },
+    p1: {
+      fontSize: 20,
+      margin: '.2em 0'
+    },
+    p2: {
+      fontSize: 30,
+      margin: '.2em 0'
+    },
+    p3: {
+      fontSize: 20,
+      margin: '.2em 0'
+    },
+    p4: {
+      fontSize: 16,
+      margin: '1em 0 .3em'
+    },
   };
   
   const mandateStr = `${mandate} מנדטים`;
@@ -26,10 +42,10 @@ const EndGamePage: React.FC<IProps> = () => {
     <>
       <EndHeader/>
       <MessageBox extraStyles={styles.messageBox}>
-        <p>אספת</p>
-        <p>{mandateStr}</p>
-        <p>( {votesStr} )</p>
-        <p>עם ישראל גאה בך</p>
+        <p style={styles.p1}>אספת</p>
+        <p style={styles.p2}>{mandateStr}</p>
+        <p style={styles.p3}>( {votesStr} )</p>
+        <p style={styles.p4}>עם ישראל גאה בך</p>
       </MessageBox>
       <ButtonsPanel/>
     </>

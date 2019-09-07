@@ -1113,12 +1113,13 @@ GameOverPanel.prototype = {
       textSourceX, textSourceY, textSourceWidth, textSourceHeight,
       textTargetX, textTargetY, textTargetWidth, textTargetHeight);
 
+    // KNOTE: do not draw restart button
     // Restart button.
-    this.canvasCtx.drawImage(Runner.imageSprite,
-      this.restartImgPos.x, this.restartImgPos.y,
-      restartSourceWidth, restartSourceHeight,
-      restartTargetX, restartTargetY, dimensions.RESTART_WIDTH,
-      dimensions.RESTART_HEIGHT);
+    // this.canvasCtx.drawImage(Runner.imageSprite,
+    //   this.restartImgPos.x, this.restartImgPos.y,
+    //   restartSourceWidth, restartSourceHeight,
+    //   restartTargetX, restartTargetY, dimensions.RESTART_WIDTH,
+    //   dimensions.RESTART_HEIGHT);
   }
 };
 

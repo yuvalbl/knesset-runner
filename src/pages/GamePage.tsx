@@ -3,6 +3,8 @@ import Runner from '../runner/runner';
 import {useStore} from '../store/storeConfig';
 import {pressStartTitle} from '../assets';
 
+// delay before changing to game-end page
+const GAME_OVER_DELAY = 800;
 // from original TRunner code
 const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
 const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
@@ -27,10 +29,10 @@ const GamePage: React.FC<IProps> = () => {
       textAlign: 'center'  as 'center'
     }
   };
-  const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/${characterName}-100-sprite.png`;
-  const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/${characterName}-200-sprite.png`;
-  const altResourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/lapid-100-sprite.png`;
-  const altResourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/lapid-200-sprite.png`;
+  const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-100-${characterName}.png`;
+  const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-200-${characterName}.png`;
+  const altResourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-100-lapid.png`;
+  const altResourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-200-lapid.png`;
   
   const startGame = () => {
     setStarted(true)
@@ -38,7 +40,9 @@ const GamePage: React.FC<IProps> = () => {
   
   const endGame = (votes: number) => {
     store.setVotes(votes);
-    store.setActivePage('game-end');
+    setTimeout(() => {
+      store.setActivePage('game-end');
+    }, GAME_OVER_DELAY);
   };
   
   useEffect(() => {
