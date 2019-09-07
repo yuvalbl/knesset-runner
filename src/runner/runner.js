@@ -5,7 +5,7 @@
 // (function () {
 //     'use strict';
 
-const VOTES_PER_STEP = 100;
+const VOTES_PER_STEP = 500;
 const rootContainer = document.getElementById('root');
 let usingAlternativeSprite = false;
 // KNOTE - toggle sprite
@@ -1852,6 +1852,7 @@ Trex.prototype = {
    * @param {boolean} isDucking.
    */
   setDuck: function (isDucking) {
+    // KNOTE: do not allow ducking
     if (isDucking && this.status !== Trex.status.DUCKING) {
       this.update(0, Trex.status.DUCKING);
       this.ducking = true;

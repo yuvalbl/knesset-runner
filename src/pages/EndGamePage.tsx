@@ -4,13 +4,15 @@ import EndHeader from '../components/EndHeader';
 import {useStore} from '../store/storeConfig';
 import MessageBox from '../components/MessageBox';
 
+const VOTES_PER_MANDATE = 32000;
+
 interface IProps {
 }
 
 const EndGamePage: React.FC<IProps> = () => {
   const store = useStore();
   const votes = store.votes;
-  const mandate = Math.floor(votes / 12000);
+  const mandate = Math.floor(votes / VOTES_PER_MANDATE);
   
   const styles = {
     messageBox: {

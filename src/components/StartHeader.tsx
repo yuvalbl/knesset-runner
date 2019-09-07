@@ -10,7 +10,8 @@ const StartHeader: React.FC<IProps> = () => {
       width: '100%',
       display: 'flex',
       justifyContent: 'center' as 'center',
-      margin: '85px 0'
+      margin: '85px 0',
+      maxHeight: 400,
     },
     image: {
       flex: 1

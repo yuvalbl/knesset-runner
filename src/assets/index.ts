@@ -7,6 +7,7 @@ import buttonShare from './elements/button-share.svg'
 import buttonShareFacebook from './elements/button-share-fb.svg'
 import buttonShareTwitter from './elements/button-share-twitter.svg'
 import buttonYalla from './elements/button-yalla.svg'
+import buttonYouDigYou from './elements/button-youdigyou.svg'
 import backgroundPattern from './elements/pattern.svg'
 import gameTitleStart from './elements/gametitle-start.svg'
 import gameTitleEnd from './elements/gametitle-end.svg'
@@ -41,6 +42,7 @@ export {
   buttonShareFacebook,
   buttonShareTwitter,
   buttonYalla,
+  buttonYouDigYou,
   // general elements
   backgroundPattern,
   gameTitleStart,

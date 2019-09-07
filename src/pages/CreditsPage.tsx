@@ -1,5 +1,5 @@
 import React from 'react';
-import {buttonNewGame, creditTitle} from '../assets';
+import {buttonYouDigYou, creditTitle} from '../assets';
 import ImageButton from '../components/ImageButton';
 import {useStore} from '../store/storeConfig';
 import MessageBox from '../components/MessageBox';
@@ -43,7 +43,7 @@ const CreditsPage: React.FC<IProps> = () => {
             גיל כהן הוא מעצב, שחקן ואמן אורז.
             הוא אוהב לרקוד לצלילי אה-גה-דו, לטוס להופעות של כוכבי לכת ולקרוא לילד בשמו.
             אפשר להטריד אותו ב
-            <a href="http://facebook.com/grandcohen" target="_blank" rel="noopener noreferrer">פייסבוק</a>            וב
+            <a href="http://facebook.com/grandcohen" target="_blank" rel="noopener noreferrer">פייסבוק</a> וב
             <a href="http://instagram.com/flying_eggplant" target="_blank" rel="noopener noreferrer">אינסטגרם</a> או
             לצפות במערכונים שהוא מעלה ל
             <a href="http://youtube.com/gilcohen1" target="_blank" rel="noopener noreferrer">יוטיוב</a>
@@ -52,8 +52,10 @@ const CreditsPage: React.FC<IProps> = () => {
           <p>
             יובל בר לוי הוא שאמן מתקופת אגוז המוסקט. הוא מנשק קמעות ושוחה חתירה ללא מצופים.
             בשאר הזמן הוא&nbsp;
-            <a href="https://www.linkedin.com/in/yuval-bar-levi-70677748/" target="_blank" rel="noopener noreferrer">עוסק</a>  ב
-            <a href="https://github.com/yuvalbl" target="_blank" rel="noopener noreferrer">תכנות אמנותי</a>             חצי אולימפי, ומטריל מלפפוני ים ב
+            <a href="https://www.linkedin.com/in/yuval-bar-levi-70677748/" target="_blank"
+               rel="noopener noreferrer">עוסק</a> ב
+            <a href="https://github.com/yuvalbl" target="_blank" rel="noopener noreferrer">תכנות אמנותי</a> חצי אולימפי,
+            ומטריל מלפפוני ים ב
             <a href="https://www.facebook.com/yuval.b.levy" target="_blank" rel="noopener noreferrer">פייסבוק</a>
             .
           </p>
@@ -65,7 +67,7 @@ const CreditsPage: React.FC<IProps> = () => {
           </p>
         </div>
       </MessageBox>
-      <ImageButton imageSrc={buttonNewGame} onClick={() => store.setActivePage('intro')}/>
+      <ImageButton imageSrc={buttonYouDigYou} onClick={() => store.setActivePage('intro')}/>
     </div>
   );
 };

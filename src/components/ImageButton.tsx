@@ -18,6 +18,7 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
     button: {
       height: 45, // default
       width: 250, // default
+      lineHeight: '45px', // default
       border: 0,
       background: 0,
       outline: 0,
@@ -33,6 +34,7 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
       break;
     case ButtonType.Character:
       styles.button.height = 100;
+      styles.button.lineHeight = '100px';
       styles.button.width = 100;
       break;
     case ButtonType.Standard:
