@@ -10,8 +10,6 @@ const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
 interface IProps {
 }
 
-export type RParams = { character: string };
-
 const GamePage: React.FC<IProps> = () => {
   const [started, setStarted] = useState(false);
   const store = useStore();
@@ -45,7 +43,7 @@ const GamePage: React.FC<IProps> = () => {
   
   useEffect(() => {
     new Runner('.interstitial-wrapper', startGame, endGame, spriteRotation);
-  }, [startGame, endGame]);
+  }, []);
   
   const titleAlt = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
 
