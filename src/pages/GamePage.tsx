@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Runner from '../runner/runner';
 import {useStore} from '../store/storeConfig';
 import {pressStartTitle} from '../assets';
+import {palette} from '../styles';
 
 // delay before changing to game-end page
-const GAME_OVER_DELAY = 800;
+const GAME_OVER_DELAY = 700;
 // from original TRunner code
 const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
 const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
@@ -20,13 +21,23 @@ const GamePage: React.FC<IProps> = () => {
   
   const styles = {
     container: {
+      display: 'flex',
+      flexBasis: '80vh',
+      flexDirection: 'column' as 'column',
+      justifyContent: 'center' as 'center',
       width: '94%',
       maxWidth: 600,
-      padding: 5
+      padding: 5,
     },
     messageBox: {
       height: 70,
-      textAlign: 'center'  as 'center'
+      textAlign: 'center' as 'center'
+    },
+    mainFrameError: {
+      display: 'flex',
+      overflow: 'hidden',
+      border: '5px solid white',
+      backgroundColor: palette.background
     }
   };
   const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-100-${characterName}.png`;
@@ -50,7 +61,7 @@ const GamePage: React.FC<IProps> = () => {
   }, []);
   
   const titleAlt = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
-
+  
   return (
     <div id="t" className="offline" style={styles.container}>
       <div id="messageBox" className="sendmessage" style={styles.messageBox}>
@@ -61,7 +72,7 @@ const GamePage: React.FC<IProps> = () => {
           }
         </h1>
       </div>
-      <div id="main-frame-error" className="interstitial-wrapper">
+      <div id="main-frame-error" className="interstitial-wrapper" style={styles.mainFrameError}>
         <div id="main-content">
           <div className="icon icon-offline"/>
         </div>
@@ -70,10 +81,10 @@ const GamePage: React.FC<IProps> = () => {
           <img id="offline-resources-2x" src={resourcesUrlX2} alt=""/>
           {
             spriteRotation &&
-              <>
-                <img id="alternative-resources-1x" src={altResourcesUrlX1} alt=""/>
-                <img id="alternative-resources-2x" src={altResourcesUrlX2} alt=""/>
-              </>
+            <>
+              <img id="alternative-resources-1x" src={altResourcesUrlX1} alt=""/>
+              <img id="alternative-resources-2x" src={altResourcesUrlX2} alt=""/>
+            </>
           }
           <div id="audio-resources">
             <audio id="offline-sound-press"
