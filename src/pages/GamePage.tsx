@@ -3,15 +3,15 @@ import Runner from '../runner/runner';
 import {useStore} from '../store/storeConfig';
 import {palette} from '../styles';
 import GameTitle, {TITLE} from '../components/GameTitle';
-import ImageButton, {ButtonType} from '../components/ImageButton';
-import {buttonShareFacebook, buttonYalla2} from '../assets';
+import ImageButton from '../components/ImageButton';
+import {buttonBibiFinish} from '../assets';
 
 // delay before changing to game-end page
 const GAME_OVER_DELAY = 700;
 // delay for rotation title
 const ROTATION_DELAY = 3000;
 // delay for rotation title
-const GOD_MODE_DELAY = 10000;
+const GOD_MODE_DELAY = 7000;
 // from original TRunner code
 const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
 const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
@@ -23,6 +23,7 @@ interface IProps {
 const GamePage: React.FC<IProps> = () => {
   const [started, setStarted] = useState(false);
   const [title, setTitle] = useState(TITLE.init);
+  const [runner, setRunner] = useState();
   const store = useStore();
   const characterName = (store.activeCharacter) ? store.activeCharacter.name : null;
   
@@ -51,7 +52,7 @@ const GamePage: React.FC<IProps> = () => {
       border: '5px solid white',
       backgroundColor: palette.background
     },
-    yalla: {
+    bibiGodMode: {
       display: 'flex',
       justifyContent: 'center' as 'center',
       padding: 20,
@@ -63,17 +64,22 @@ const GamePage: React.FC<IProps> = () => {
   const altResourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-200-lapid.png`;
   
   const onGameStart = () => {
-    if(!started) {
+    if (!started) {
       setStarted(true);
       setTitle(TITLE.none);
+    }
+    if (godMode) {
+      setTimeout(() => {
+        setTitle(TITLE.godMode);
+      }, GOD_MODE_DELAY);
     }
   };
   
   const onGameOver = (votes: number) => {
     store.setVotes(votes);
     setTimeout(() => {
-      store.setActivePage('game-end');
     }, GAME_OVER_DELAY);
+    store.setActivePage('game-end');
   };
   
   const toggleSpriteCallback = () => {
@@ -83,10 +89,16 @@ const GamePage: React.FC<IProps> = () => {
     }, ROTATION_DELAY);
   };
   
+  const stopGame = () => {
+    if (runner) {
+      runner.gameOver(true);  // skip onGameOver callback
+      store.setActivePage('game-end');
+    }
+  };
+  
   const toggleRotationParam = (spriteRotation) ? toggleSpriteCallback : undefined;
   
   useEffect(() => {
-    console.log('useEffect');
     const options = {
       onGameStart,
       onGameOver,
@@ -94,12 +106,9 @@ const GamePage: React.FC<IProps> = () => {
       godMode: godMode,
       preventMove: godMode,
     };
-    new Runner('.interstitial-wrapper', options);
-    if (godMode) {
-      setTimeout(() => {
-        setTitle(TITLE.godMode);
-      }, GOD_MODE_DELAY);
-    }
+    
+    const runnerInstance = new Runner('.interstitial-wrapper', options);
+    setRunner(runnerInstance);
   }, []);
   
   return (
@@ -133,8 +142,8 @@ const GamePage: React.FC<IProps> = () => {
       </div>
       {
         (title === TITLE.godMode) &&
-        <div style={styles.yalla}>
-          <ImageButton imageSrc={buttonYalla2} onClick={() => store.setActivePage('game-end')}/>
+        <div style={styles.bibiGodMode}>
+          <ImageButton imageSrc={buttonBibiFinish} onClick={stopGame}/>
         </div>
       }
     </div>

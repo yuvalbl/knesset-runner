@@ -807,7 +807,7 @@ Runner.prototype = {
   /**
    * Game over state.
    */
-  gameOver: function () {
+  gameOver: function (skipCallback = false) {
     this.playSound(this.soundFx.HIT);
     vibrate(200);
 
@@ -834,7 +834,7 @@ Runner.prototype = {
 
     // Reset the time clock.
     this.time = getTimeStamp();
-    if(Runner.onGameOver) {
+    if(Runner.onGameOver && !skipCallback) {
       Runner.onGameOver(Runner.votes);
     }
   },
@@ -2687,7 +2687,8 @@ Horizon.prototype = {
    * @param {number} currentSpeed
    */
   addNewObstacle: function (currentSpeed) {
-    var obstacleTypeIndex = getRandomNum(0, Obstacle.types.length - 1);
+    // KNOTE: skip PTERODACTYL type
+    var obstacleTypeIndex = getRandomNum(0, Obstacle.types.length - 2);
     var obstacleType = Obstacle.types[obstacleTypeIndex];
 
     // Check for multiples of the same type of obstacle.

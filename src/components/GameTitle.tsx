@@ -37,7 +37,7 @@ const GameTitle: React.FC<IProps> = ({title}) => {
       imageSrc = '';
       break;
   }
-  console.log('imageSrc', imageSrc);
+
   return (
     <>
       {

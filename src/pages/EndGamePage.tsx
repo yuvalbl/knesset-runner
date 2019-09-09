@@ -37,6 +37,10 @@ const EndGamePage: React.FC<IProps> = () => {
       fontSize: 16,
       margin: '1em 0 .3em'
     },
+    bibiText: {
+      fontSize: 20,
+      margin: '.2em 0'
+    }
   };
   
   const mandateStr = `${mandate} מנדטים`;
@@ -53,9 +57,10 @@ const EndGamePage: React.FC<IProps> = () => {
   
   const messageBibi = (
     <>
-      <p style={styles.p1}>לא משנה</p>
-      <p style={styles.p2}>כמה מנדטים אספתם</p>
-      <p style={styles.p3}>אתם ביבי!</p>
+      <p style={styles.bibiText}>לא משנה כמה
+        <br/>
+        מנדטים קיבלתם,</p>
+      <p style={styles.bibiText}>אתם ביבי</p>
     </>
   );
   
