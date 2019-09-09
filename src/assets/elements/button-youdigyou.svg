@@ -8,8 +8,8 @@
 	.st2{enable-background:new    ;}
 </style>
 <rect id="Rectangle-10-Copy" x="2" y="37" class="st0" width="212" height="2"/>
-<rect id="Rectangle-9" x="107" y="2" class="st0" width="2" height="35"/>
-<rect id="Rectangle-9-Copy" x="107" y="2" class="st0" width="2" height="35"/>
+<rect id="Rectangle-9" y="2" class="st0" width="2" height="35"/>
+<rect id="Rectangle-9-Copy" x="214" y="2" class="st0" width="2" height="35"/>
 <rect id="Rectangle-10" x="2" class="st0" width="212" height="2"/>
 <rect id="bg" x="2" y="2" class="st1" width="212" height="35"/>
 <g class="st2">
@@ -19,8 +19,8 @@
 	<path class="st0" d="M98.3,16h-1v-3h12v12h-12v-3h9v-6h-5v3h-3V16z"/>
 	<path class="st0" d="M112.3,13h12v12h-3v-9h-6v9h-3V13z"/>
 	<path class="st0" d="M135.9,19h-3v-6h3V19z"/>
-	<path class="st0" d="M137.9,20.4l2.6-2.6l-2.9-2.9l2.1-2.1l5.7,5.7l1.5-1.5V13h3v5.1l-2.4,2.4l2.7,2.7l-2.1,2.1l-5.4-5.4l-1.8,1.8
-		V25h-3V20.4z"/>
+	<path class="st0" d="M137.9,20.4l2.6-2.6l-2.9-2.9l2.1-2.1l5.7,5.7l1.5-1.5v-4h3v5.1l-2.4,2.4l2.7,2.7l-2.1,2.1l-5.4-5.4l-1.8,1.8
+		V25h-3L137.9,20.4L137.9,20.4z"/>
 	<path class="st0" d="M155.6,25h-3V13h3V25z"/>
 	<path class="st0" d="M161.6,25h-3V13h3V25z"/>
 </g>

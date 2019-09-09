@@ -12,6 +12,7 @@ const MessageBox: React.FC<IProps> = ({children, extraStyles}) => {
       flexDirection: 'column' as 'column',
       alignItems: 'center' as 'center',
       color: palette.actionBlue,
+      padding: 5,
       ...extraStyles
     },
     line: {

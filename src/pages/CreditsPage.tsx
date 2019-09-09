@@ -9,6 +9,7 @@ interface IProps {
 
 const CreditsPage: React.FC<IProps> = () => {
   const store = useStore();
+  const goBackPage = (store.activeCharacter) ? 'game-end' :  'intro';
   
   const styles = {
     container: {
@@ -67,7 +68,7 @@ const CreditsPage: React.FC<IProps> = () => {
           </p>
         </div>
       </MessageBox>
-      <ImageButton imageSrc={buttonYouDigYou} onClick={() => store.setActivePage('intro')}/>
+      <ImageButton imageSrc={buttonYouDigYou} onClick={() => store.setActivePage(goBackPage)}/>
     </div>
   );
 };

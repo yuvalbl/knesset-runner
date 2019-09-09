@@ -39,3 +39,13 @@ a, a:hover, a:active, a:visited{
   color: #61dafb;
   text-decoration: none;
 }
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

@@ -5,7 +5,7 @@
 // (function () {
 //     'use strict';
 
-const VOTES_PER_STEP = 500;
+const VOTES_PER_STEP = 800;
 const rootContainer = document.getElementById('root');
 let usingAlternativeSprite = false;
 // KNOTE - toggle sprite
@@ -14,6 +14,7 @@ function toggleSprite() {
   const activeSpritePrefix = usingAlternativeSprite ? 'offline' : 'alternative';
   const activeSpriteId = `${activeSpritePrefix}-resources-${IS_HIDPI ? '2' : '1'}x`;
   Runner.imageSprite =  document.getElementById(activeSpriteId);
+  Runner.spriteRotationCB();
 }
 
 /**
@@ -25,16 +26,18 @@ function toggleSprite() {
  * @constructor
  * @export
  */
-function Runner(outerContainerId, onGameStart, onGameOver, spriteRotation, opt_config = null) {
+function Runner(outerContainerId, options, opt_config = null) {
   // Singleton
   // KNOTE: remove for restarting game
   // if (Runner.instance_) {
   //   return Runner.instance_;
   // }
   Runner.instance_ = this;
-  Runner.onGameStart = onGameStart; //KNOTE: game start callback
-  Runner.onGameOver = onGameOver; //KNOTE: game over callback
-  Runner.spriteRotation = spriteRotation; //KNOTE: use sprite toggling after  every achievement?
+  Runner.onGameStart = options.onGameStart; //KNOTE: game start callback
+  Runner.onGameOver = options.onGameOver; //KNOTE: game over callback
+  Runner.spriteRotationCB = options.spriteRotationCB; //KNOTE: use sprite toggling after  every achievement?
+  Runner.godMode = options.godMode; //KNOTE: use sprite toggling after  every achievement?
+  Runner.preventMove = options.preventMove; //KNOTE: use sprite toggling after  every achievement?
 
   this.outerContainerEl = document.querySelector(outerContainerId);
   this.containerEl = null;
@@ -483,6 +486,8 @@ Runner.prototype = {
    */
   playIntro: function () {
     if (!this.activated && !this.crashed) {
+      // KNOTE: notify game started
+      Runner.onGameStart();
       this.playingIntro = true;
       this.tRex.playingIntro = true;
 
@@ -512,7 +517,6 @@ Runner.prototype = {
     } else if (this.crashed) {
       this.restart();
     }
-    Runner.onGameStart();
   },
 
 
@@ -577,7 +581,8 @@ Runner.prototype = {
       }
 
       // Check for collisions.
-      var collision = hasObstacles &&
+      // KNOTE: god mode added
+      var collision =  !Runner.godMode && hasObstacles &&
         checkForCollision(this.horizon.obstacles[0], this.tRex);
 
       if (!collision) {
@@ -632,6 +637,10 @@ Runner.prototype = {
    */
   handleEvent: function (e) {
     return (function (evtType, events) {
+      // KNOTE: preventMove skip touch / key events
+      if (Runner.preventMove && this.playing) {
+        return;
+      }
       switch (evtType) {
         case events.KEYDOWN:
         case events.TOUCHSTART:
@@ -2066,7 +2075,7 @@ DistanceMeter.prototype = {
           this.flashTimer = 0;
           playSound = true;
           // KNOTE: on rotation, toggle sprint on each achievement
-          if(Runner.spriteRotation) {
+          if(Boolean(Runner.spriteRotationCB)) {
             toggleSprite();
           }
         }

@@ -1,43 +1,60 @@
 import React, {useEffect, useState} from 'react';
 import Runner from '../runner/runner';
 import {useStore} from '../store/storeConfig';
-import {pressStartTitle} from '../assets';
 import {palette} from '../styles';
+import GameTitle, {TITLE} from '../components/GameTitle';
+import ImageButton, {ButtonType} from '../components/ImageButton';
+import {buttonShareFacebook, buttonYalla2} from '../assets';
 
 // delay before changing to game-end page
 const GAME_OVER_DELAY = 700;
+// delay for rotation title
+const ROTATION_DELAY = 3000;
+// delay for rotation title
+const GOD_MODE_DELAY = 10000;
 // from original TRunner code
 const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
 const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
+
 
 interface IProps {
 }
 
 const GamePage: React.FC<IProps> = () => {
   const [started, setStarted] = useState(false);
+  const [title, setTitle] = useState(TITLE.init);
   const store = useStore();
   const characterName = (store.activeCharacter) ? store.activeCharacter.name : null;
+  
   const spriteRotation = characterName === 'gantz';
+  const godMode = characterName === 'bibi';
   
   const styles = {
     container: {
       display: 'flex',
-      flexBasis: '80vh',
+      flexBasis: '100vh',
       flexDirection: 'column' as 'column',
-      justifyContent: 'center' as 'center',
       width: '94%',
       maxWidth: 600,
       padding: 5,
     },
     messageBox: {
-      height: 70,
-      textAlign: 'center' as 'center'
+      display: 'flex',
+      alignItems: 'flex-end' as 'flex-end',
+      height: '30vh',
+      padding: 20,
+      textAlign: 'center' as 'center',
     },
     mainFrameError: {
       display: 'flex',
       overflow: 'hidden',
       border: '5px solid white',
       backgroundColor: palette.background
+    },
+    yalla: {
+      display: 'flex',
+      justifyContent: 'center' as 'center',
+      padding: 20,
     }
   };
   const resourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-100-${characterName}.png`;
@@ -45,32 +62,50 @@ const GamePage: React.FC<IProps> = () => {
   const altResourcesUrlX1 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-100-lapid.png`;
   const altResourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-200-lapid.png`;
   
-  const startGame = () => {
-    setStarted(true)
+  const onGameStart = () => {
+    if(!started) {
+      setStarted(true);
+      setTitle(TITLE.none);
+    }
   };
   
-  const endGame = (votes: number) => {
+  const onGameOver = (votes: number) => {
     store.setVotes(votes);
     setTimeout(() => {
       store.setActivePage('game-end');
     }, GAME_OVER_DELAY);
   };
   
-  useEffect(() => {
-    new Runner('.interstitial-wrapper', startGame, endGame, spriteRotation);
-  }, []);
+  const toggleSpriteCallback = () => {
+    setTitle(TITLE.rotation);
+    setTimeout(() => {
+      setTitle(TITLE.none);
+    }, ROTATION_DELAY);
+  };
   
-  const titleAlt = `${IS_MOBILE ? 'Tap Screen' : 'Press Space'} to start`;
+  const toggleRotationParam = (spriteRotation) ? toggleSpriteCallback : undefined;
+  
+  useEffect(() => {
+    console.log('useEffect');
+    const options = {
+      onGameStart,
+      onGameOver,
+      spriteRotationCB: toggleRotationParam,
+      godMode: godMode,
+      preventMove: godMode,
+    };
+    new Runner('.interstitial-wrapper', options);
+    if (godMode) {
+      setTimeout(() => {
+        setTitle(TITLE.godMode);
+      }, GOD_MODE_DELAY);
+    }
+  }, []);
   
   return (
     <div id="t" className="offline" style={styles.container}>
       <div id="messageBox" className="sendmessage" style={styles.messageBox}>
-        <h1>
-          {
-            !started &&
-            <img src={pressStartTitle} alt={titleAlt}/>
-          }
-        </h1>
+        <GameTitle title={title}/>
       </div>
       <div id="main-frame-error" className="interstitial-wrapper" style={styles.mainFrameError}>
         <div id="main-content">
@@ -96,6 +131,12 @@ const GamePage: React.FC<IProps> = () => {
           </div>
         </div>
       </div>
+      {
+        (title === TITLE.godMode) &&
+        <div style={styles.yalla}>
+          <ImageButton imageSrc={buttonYalla2} onClick={() => store.setActivePage('game-end')}/>
+        </div>
+      }
     </div>
   );
 };

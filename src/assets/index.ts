@@ -7,6 +7,7 @@ import buttonShare from './elements/button-share.svg'
 import buttonShareFacebook from './elements/button-share-fb.svg'
 import buttonShareTwitter from './elements/button-share-twitter.svg'
 import buttonYalla from './elements/button-yalla.svg'
+import buttonYalla2 from './elements/button-yalla2.svg'
 import buttonYouDigYou from './elements/button-youdigyou.svg'
 import backgroundPattern from './elements/pattern.svg'
 import gameTitleStart from './elements/gametitle-start.svg'
@@ -14,6 +15,8 @@ import gameTitleEnd from './elements/gametitle-end.svg'
 import selectCharacterTitle from './elements/title-choose-character.svg'
 import pressStartTitle from './elements/title-pressstart.svg'
 import creditTitle from './elements/title-credits.svg'
+import rotationTitle from './elements/title-rotation.svg'
+import bibGodTitle from './elements/title-bibi-god.svg'
 // characters
 import bibiGrayScale from './characters/sqr-bw-bibi.svg'
 import bibiColor from './characters/sqr-c-bibi.svg'
@@ -42,7 +45,9 @@ export {
   buttonShareFacebook,
   buttonShareTwitter,
   buttonYalla,
+  buttonYalla2,
   buttonYouDigYou,
+  bibGodTitle,
   // general elements
   backgroundPattern,
   gameTitleStart,
@@ -50,6 +55,7 @@ export {
   selectCharacterTitle,
   pressStartTitle,
   creditTitle,
+  rotationTitle,
   // characters
   bibiGrayScale,
   bibiColor,
@@ -68,3 +74,28 @@ export {
   udaGrayScale,
   udaColor
 }
+
+
+export const preLoad = [
+  buttonYalla,
+  buttonYouDigYou,
+  buttonShareFacebook,
+  buttonShareTwitter,
+  //characters
+  bibiGrayScale,
+  bibiColor,
+  gantzGrayScale,
+  gantzColor,
+  deriGrayScale,
+  deriColor,
+  libermanGrayScale,
+  libermanColor,
+  peretzGrayScale,
+  peretzColor,
+  shafirGrayScale,
+  shafirColor,
+  shakedGrayScale,
+  shakedColor,
+  udaGrayScale,
+  udaColor
+];

@@ -13,6 +13,7 @@ const EndGamePage: React.FC<IProps> = () => {
   const store = useStore();
   const votes = store.votes;
   const mandate = Math.floor(votes / VOTES_PER_MANDATE);
+  const isBibi = store.activeCharacter && store.activeCharacter.name === 'bibi';
   
   const styles = {
     messageBox: {
@@ -40,14 +41,31 @@ const EndGamePage: React.FC<IProps> = () => {
   
   const mandateStr = `${mandate} מנדטים`;
   const votesStr = `${votes} קולות`;
+  
+  const messageNormal = (
+    <>
+      <p style={styles.p1}>אספתם</p>
+      <p style={styles.p2}>{mandateStr}</p>
+      <p style={styles.p3}>( {votesStr} )</p>
+      <p style={styles.p4}>עם ישראל גאה בכם</p>
+    </>
+  );
+  
+  const messageBibi = (
+    <>
+      <p style={styles.p1}>לא משנה</p>
+      <p style={styles.p2}>כמה מנדטים אספתם</p>
+      <p style={styles.p3}>אתם ביבי!</p>
+    </>
+  );
+  
   return (
     <>
       <EndHeader/>
       <MessageBox extraStyles={styles.messageBox}>
-        <p style={styles.p1}>אספת</p>
-        <p style={styles.p2}>{mandateStr}</p>
-        <p style={styles.p3}>( {votesStr} )</p>
-        <p style={styles.p4}>עם ישראל גאה בך</p>
+        {
+          isBibi ? messageBibi : messageNormal
+        }
       </MessageBox>
       <ButtonsPanel/>
     </>
