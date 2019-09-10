@@ -22,15 +22,16 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
       border: 0,
       background: 0,
       outline: 0,
-      marginBottom: 5,
-      cursor: 'pointer' as 'pointer'
+      cursor: 'pointer' as 'pointer',
+      margin: 5,
+      padding: 0
     },
   };
   
   // small / character styles
   switch (type) {
     case ButtonType.Small:
-      styles.button.width = 120;
+      styles.button.width = 70;
       break;
     case ButtonType.Character:
       styles.button.height = 100;
