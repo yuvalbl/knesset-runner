@@ -11,7 +11,7 @@ let usingAlternativeSprite = false;
 // KNOTE - toggle sprite
 function toggleSprite() {
   usingAlternativeSprite = !usingAlternativeSprite;
-  const activeSpritePrefix = usingAlternativeSprite ? 'offline' : 'alternative';
+  const activeSpritePrefix = usingAlternativeSprite ? 'alternative' : 'offline';
   const activeSpriteId = `${activeSpritePrefix}-resources-${IS_HIDPI ? '2' : '1'}x`;
   Runner.imageSprite =  document.getElementById(activeSpriteId);
   Runner.spriteRotationCB();
@@ -110,7 +110,8 @@ var DEFAULT_WIDTH = 600;
 var FPS = 60;
 
 /** @const */
-var IS_HIDPI = window.devicePixelRatio > 1;
+// always use 2X
+var IS_HIDPI = true//window.devicePixelRatio > 1;
 
 /** @const */
 var IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
@@ -2113,6 +2114,10 @@ DistanceMeter.prototype = {
       }
     }
 
+    // KNOTE: stop after 120 mandates
+    if(distance >= 4800) {
+      Runner.instance_.gameOver();
+    }
     this.drawHighScore();
     return playSound;
   },

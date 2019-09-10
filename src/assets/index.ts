@@ -6,6 +6,7 @@ import buttonReplaceCharacter from './elements/button-newplayer.svg'
 import buttonShare from './elements/button-share.svg'
 import buttonShareFacebook from './elements/button-share-fb.svg'
 import buttonShareTwitter from './elements/button-share-twitter.svg'
+import buttonShareWhatsApp from './elements/button-share-whatsapp.svg'
 import buttonYalla from './elements/button-yalla.svg'
 import buttonBibiFinish from './elements/button-bibi-finish.svg'
 import buttonYouDigYou from './elements/button-youdigyou.svg'
@@ -44,6 +45,7 @@ export {
   buttonShare,
   buttonShareFacebook,
   buttonShareTwitter,
+  buttonShareWhatsApp,
   buttonYalla,
   buttonBibiFinish,
   buttonYouDigYou,

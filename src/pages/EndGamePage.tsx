@@ -3,6 +3,8 @@ import ButtonsPanel from '../components/ButtonsPanel';
 import EndHeader from '../components/EndHeader';
 import {useStore} from '../store/storeConfig';
 import MessageBox from '../components/MessageBox';
+import {ICharacter} from '../store/store';
+import {getSummaryByMandates} from '../summary.message.service';
 
 const VOTES_PER_MANDATE = 32000;
 
@@ -14,6 +16,7 @@ const EndGamePage: React.FC<IProps> = () => {
   const votes = store.votes;
   const mandate = Math.floor(votes / VOTES_PER_MANDATE);
   const isBibi = store.activeCharacter && store.activeCharacter.name === 'bibi';
+  const character = (store.activeCharacter as ICharacter).name;
   
   const styles = {
     messageBox: {
@@ -35,7 +38,7 @@ const EndGamePage: React.FC<IProps> = () => {
     },
     p4: {
       fontSize: 16,
-      margin: '1em 0 .3em'
+      margin: '1em'
     },
     bibiText: {
       fontSize: 20,
@@ -45,13 +48,14 @@ const EndGamePage: React.FC<IProps> = () => {
   
   const mandateStr = `${mandate} מנדטים`;
   const votesStr = `${votes} קולות`;
+  const summaryByMandates = (isBibi) ? '' : getSummaryByMandates(mandate, character);
   
   const messageNormal = (
     <>
       <p style={styles.p1}>אספתם</p>
       <p style={styles.p2}>{mandateStr}</p>
       <p style={styles.p3}>( {votesStr} )</p>
-      <p style={styles.p4}>עם ישראל גאה בכם</p>
+      <p style={styles.p4}>{summaryByMandates}</p>
     </>
   );
   

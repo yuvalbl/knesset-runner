@@ -9,21 +9,38 @@ import SelectPage from './pages/SelectPage';
 import EndGamePage from './pages/EndGamePage';
 import {store, StoreContext} from './store/storeConfig';
 import {useObserver} from 'mobx-react-lite';
+import MessageBox from './components/MessageBox';
+import StartHeader from './components/StartHeader';
 
 const App: React.FC = () => {
   const classes = {
-    main: {
-      dir: 'rtl',
+    background: {
       display: 'flex',
-      height: '100%',
-      minHeight: '100vh',
       flexDirection: 'column' as 'column',
       alignItems: 'center',
+      height: '100%',
+      width: '100%',
+      minHeight: '100vh',
       backgroundColor: palette.background,
       backgroundImage: `url(${backgroundPattern})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
+    },
+    main: {
+      dir: 'rtl',
+      display: 'flex',
+      minHeight: '100vh',
+      flexDirection: 'column' as 'column',
+      alignItems: 'center',
+    },
+    mobileOnlyMessageBox: {
+      margin: 30
+    },
+    mobileOnlyMessageInner: {
+      textAlign: 'center' as 'center',
+      padding: 40,
+      fontSize: 30
     }
   };
   
@@ -46,9 +63,24 @@ const App: React.FC = () => {
   
   return useObserver(() => (
     <StoreContext.Provider value={store}>
-      <main dir="rtl" id="main" style={classes.main}>
-        {page}
-      </main>
+      
+      <div style={classes.background}>
+        <div className="mobileOnly">
+          <main dir="rtl" id="main" style={classes.main}>
+            {page}
+          </main>
+        </div>
+        
+        <div className="mobileOnlyMessage">
+          <StartHeader/>
+          <MessageBox extraStyles={classes.mobileOnlyMessageBox}>
+            <p style={classes.mobileOnlyMessageInner}>
+              מצטערים, שרפנו את התקציב שלנו על קמפיין בחירות. המשחק זמין כרגע רק בטלפונים ניידים.
+            </p>
+          </MessageBox>
+        </div>
+      </div>
+      
     </StoreContext.Provider>
   ));
 };

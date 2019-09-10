@@ -7,7 +7,7 @@ import {
   buttonReset,
   buttonShare,
   buttonShareFacebook,
-  buttonShareTwitter
+  buttonShareTwitter, buttonShareWhatsApp
 } from '../assets';
 import {useStore} from '../store/storeConfig';
 
@@ -19,7 +19,7 @@ const ButtonsPanel: React.FC<IProps> = () => {
   const store = useStore();
   const character = store.activeCharacter;
   const shareUrl = window.location.href;
-  const shareText = 'רצים לכנסת 2019!';
+  const shareText = 'המירוץ לכנסת - המשחק שיגרום לפוליטיקאים לרוץ בשבילכם';
   
   const styles = {
     container: {
@@ -48,6 +48,10 @@ const ButtonsPanel: React.FC<IProps> = () => {
       <a target="_blank" rel="noopener noreferrer"
          href={encodeURI(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`)}>
         <ImageButton imageSrc={buttonShareFacebook} type={ButtonType.Small}/>
+      </a>
+      <a target="_blank" rel="noopener noreferrer"
+         href={encodeURI(`whatsapp://send?text=${shareText}`)} data-action="share/whatsapp/share">
+        <ImageButton imageSrc={buttonShareWhatsApp} type={ButtonType.Small}/>
       </a>
       <a target="_blank" rel="noopener noreferrer"
          href={encodeURI(`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`)}>

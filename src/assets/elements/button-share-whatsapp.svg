@@ -5,17 +5,18 @@
 <style type="text/css">
 	.st0{fill:#0033B8;}
 	.st1{fill:#FFFFFF;}
-	.st2{fill:#2FDDFC;}
+	.st2{fill:#45DC19;}
 </style>
 <g id="knesset-run">
-	<g id="_x30_0-b-shared-clicked" transform="translate(-147.000000, -448.000000)">
-		<g id="button-share-twitter" transform="translate(147.000000, 448.000000)">
+	<g id="_x30_0-b-shared-clicked" transform="translate(-221.000000, -448.000000)">
+		<g id="button-share-whatsapp" transform="translate(221.000000, 448.000000)">
 			<rect id="Rectangle-10-Copy" x="2" y="37" class="st0" width="63" height="2"/>
 			<rect id="Rectangle-9" y="2" class="st0" width="2" height="35"/>
 			<rect id="Rectangle-9-Copy" x="65" y="2" class="st0" width="2" height="35"/>
 			<rect id="Rectangle-10" x="2" class="st0" width="63" height="2"/>
 			<rect id="bg" x="2" y="2" class="st1" width="63" height="35"/>
-			<path id="Combined-Shape" class="st2" d="M31,21v4h-4V10h4v7h7v4H31z M31,29v-4h9v4H31z"/>
+			<path id="Combined-Shape" class="st2" d="M26,31h-4V16h4v7h4v4h7v4H26z M30,8h7v4h-7V8z M37,12h4v4h-4V12z M26,12h4v4h-4V12z
+				 M37,23h4v4h-4V23z M41,16h4v7h-4V16z"/>
 		</g>
 	</g>
 </g>
