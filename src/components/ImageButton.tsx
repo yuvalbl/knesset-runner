@@ -17,6 +17,7 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
   const styles = {
     button: {
       height: 45, // default
+      maxHeight: 'none', // default
       width: 250, // default
       lineHeight: '45px', // default
       border: 0,
@@ -26,6 +27,10 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
       margin: 5,
       padding: 0
     },
+    img: {
+      height: 'auto',
+      textAlign: 'center' as 'center'
+    }
   };
   
   // small / character styles
@@ -34,9 +39,11 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
       styles.button.width = 70;
       break;
     case ButtonType.Character:
-      styles.button.height = 100;
+      styles.button.height = 120;
+      styles.button.maxHeight = '20vh';
       styles.button.lineHeight = '100px';
-      styles.button.width = 100;
+      styles.button.width = 108;
+      styles.img.height = '100%';
       break;
     case ButtonType.Standard:
     default:
@@ -52,7 +59,7 @@ const ImageButton: React.FC<IProps> = ({imageSrc, type = ButtonType.Standard, ex
   
   return (
     <button style={buttonStyles} onClick={onClickFn}>
-      <img src={imageSrc} alt=""/>
+      <img style={styles.img} src={imageSrc} alt=""/>
     </button>
   );
 };

@@ -11,7 +11,7 @@ const GAME_OVER_DELAY = 1000;
 // delay for rotation title
 const ROTATION_DELAY = 3000;
 // delay for rotation title
-const GOD_MODE_DELAY = 7000;
+const GOD_MODE_DELAY = 5000;
 
 interface IProps {
 }

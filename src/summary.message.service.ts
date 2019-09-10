@@ -23,7 +23,7 @@ export function getSummaryByMandates(num: number, character: string) {
   } else if (between(num, 10 , 20)){
     switch (character) {
       case 'gantz':
-        return 'אמרנו לכם שלפיד היה רעיון לא מוצלח';
+        return 'אמרנו לך שלפיד היה רעיון לא מוצלח';
       case 'deri':
         return 'מה? אני לא שומע אתכם דרך החסינות שלי';
       case 'shaked':

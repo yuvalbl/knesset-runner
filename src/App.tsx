@@ -88,3 +88,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+console.log('%cפשוט תגידו שאתם רוצים לראות את הקוד...', 'color: red; font-size: 30px; font-weight: bold;');
+console.log('https://github.com/yuvalbl/knesset-runner');

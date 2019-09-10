@@ -37,13 +37,17 @@ const SelectPage: React.FC<IProps> = () => {
       alignItems: 'space-between',
     },
     header: {
-      margin: '40px 0 20px',
+      margin: '20px 0 10px',
+      textAlign: 'center' as 'center',
+    },
+    headerImg: {
+      height: 25,
     },
     charactersContainer: {
       display: 'flex',
       flexWrap: 'wrap' as 'wrap',
       justifyContent: 'space-between',
-      maxWidth: 250
+      maxWidth: 270
     },
     character: {
       flex: '0, 1 49%',
@@ -62,7 +66,7 @@ const SelectPage: React.FC<IProps> = () => {
   return useObserver(() => (
     <div style={styles.container}>
       <header style={styles.header}>
-        <img src={selectCharacterTitle} alt=""/>
+        <img style={styles.headerImg} src={selectCharacterTitle} alt=""/>
       </header>
       <div style={styles.charactersContainer}>
         {

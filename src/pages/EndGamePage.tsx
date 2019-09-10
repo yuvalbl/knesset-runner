@@ -52,7 +52,7 @@ const EndGamePage: React.FC<IProps> = () => {
   
   const messageNormal = (
     <>
-      <p style={styles.p1}>אספתם</p>
+      <p style={styles.p1}>אספת</p>
       <p style={styles.p2}>{mandateStr}</p>
       <p style={styles.p3}>( {votesStr} )</p>
       <p style={styles.p4}>{summaryByMandates}</p>
