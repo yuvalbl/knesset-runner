@@ -14,13 +14,13 @@ import {ICharacter} from '../store/store';
 import {useObserver} from 'mobx-react-lite';
 
 const characters: Array<ICharacter> = [
-  {name: 'bibi', image: bibiGrayScale, imageActive: bibiColor},
   {name: 'gantz', image: gantzGrayScale, imageActive: gantzColor},
-  {name: 'deri', image: deriGrayScale, imageActive: deriColor},
-  {name: 'liberman', image: libermanGrayScale, imageActive: libermanColor},
-  {name: 'peretz', image: peretzGrayScale, imageActive: peretzColor},
   {name: 'shafir', image: shafirGrayScale, imageActive: shafirColor},
+  {name: 'bibi', image: bibiGrayScale, imageActive: bibiColor},
+  {name: 'deri', image: deriGrayScale, imageActive: deriColor},
   {name: 'shaked', image: shakedGrayScale, imageActive: shakedColor},
+  {name: 'peretz', image: peretzGrayScale, imageActive: peretzColor},
+  {name: 'liberman', image: libermanGrayScale, imageActive: libermanColor},
   {name: 'uda', image: udaGrayScale, imageActive: udaColor},
 ];
 

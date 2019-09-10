@@ -50,7 +50,7 @@ const ButtonsPanel: React.FC<IProps> = () => {
         <ImageButton imageSrc={buttonShareFacebook} type={ButtonType.Small}/>
       </a>
       <a target="_blank" rel="noopener noreferrer"
-         href={encodeURI(`whatsapp://send?text=${shareText}`)} data-action="share/whatsapp/share">
+         href={encodeURI(`whatsapp://send?text=${shareText} : ${shareUrl}`)} data-action="share/whatsapp/share">
         <ImageButton imageSrc={buttonShareWhatsApp} type={ButtonType.Small}/>
       </a>
       <a target="_blank" rel="noopener noreferrer"

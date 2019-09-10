@@ -61,7 +61,7 @@ a, a:hover, a:active, a:visited {
     display: none;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 820px) {
     .mobileOnly {
         display: none;
     }

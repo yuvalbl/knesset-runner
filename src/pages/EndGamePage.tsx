@@ -38,7 +38,7 @@ const EndGamePage: React.FC<IProps> = () => {
     },
     p4: {
       fontSize: 16,
-      margin: '1em'
+      margin: '1em 1.2em'
     },
     bibiText: {
       fontSize: 20,

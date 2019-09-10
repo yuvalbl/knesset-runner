@@ -4,7 +4,7 @@ function between(x: number, min: number, max: number) {
 
 export function getSummaryByMandates(num: number, character: string) {
   if(num === 0) {
-    return 'לא נורא, שמעתי שמחפשים עובדים בwolt';
+    return 'לא נורא, שמעתי שמחפשים עובדים בוולט';
   } else if (between(num, 0 , 4)){
     return 'אפילו את אחוז החסימה לא עברת';
   } else if (between(num, 4 , 10)){
@@ -48,7 +48,7 @@ export function getSummaryByMandates(num: number, character: string) {
         return 'תגידו שלום לדיקטטור החדש שלכם';
       case 'shafir':
       case 'peretz':
-        return 'וואו, זה אמיתי?';
+        return 'איז דיס פור ריל?';
       default:
         return 'וואו, אז ככה זה מרגיש להיות הרוב?';
     }

@@ -2059,6 +2059,10 @@ DistanceMeter.prototype = {
 
     if (!this.acheivement) {
       distance = this.getActualDistance(distance);
+      // KNOTE: stop after 120 mandates
+      if(distance > 4810) {
+        Runner.instance_.gameOver();
+      }
       // Score has gone beyond the initial digit count.
       if (distance > this.maxScore && this.maxScoreUnits ===
         this.config.MAX_DISTANCE_UNITS) {
@@ -2114,10 +2118,6 @@ DistanceMeter.prototype = {
       }
     }
 
-    // KNOTE: stop after 120 mandates
-    if(distance >= 4800) {
-      Runner.instance_.gameOver();
-    }
     this.drawHighScore();
     return playSound;
   },

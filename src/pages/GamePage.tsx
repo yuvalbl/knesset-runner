@@ -53,7 +53,7 @@ const GamePage: React.FC<IProps> = () => {
       position: 'absolute' as 'absolute',
       bottom: 0,
       left: 0,
-      height: 16,
+      height: 16.7,
       width: '100%',
       backgroundColor: palette.ground,
     },

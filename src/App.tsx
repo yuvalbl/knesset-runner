@@ -75,7 +75,9 @@ const App: React.FC = () => {
           <StartHeader/>
           <MessageBox extraStyles={classes.mobileOnlyMessageBox}>
             <p style={classes.mobileOnlyMessageInner}>
-              מצטערים, שרפנו את התקציב שלנו על קמפיין בחירות. המשחק זמין כרגע רק בטלפונים ניידים.
+              מצטערים, שרפנו את התקציב שלנו על קמפיין בחירות.
+              <br/>
+              המשחק זמין כרגע רק בטלפונים ניידים.
             </p>
           </MessageBox>
         </div>
