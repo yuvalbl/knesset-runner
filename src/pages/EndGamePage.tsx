@@ -4,7 +4,7 @@ import EndHeader from '../components/EndHeader';
 import {useStore} from '../store/storeConfig';
 import MessageBox from '../components/MessageBox';
 import {ICharacter} from '../store/store';
-import {getSummaryByMandates} from '../summary.message.service';
+import {getSummaryByMandates} from '../services/summary.message.service';
 
 const VOTES_PER_MANDATE = 32000;
 

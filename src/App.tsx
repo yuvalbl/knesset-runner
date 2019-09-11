@@ -11,6 +11,10 @@ import {store, StoreContext} from './store/storeConfig';
 import {useObserver} from 'mobx-react-lite';
 import MessageBox from './components/MessageBox';
 import StartHeader from './components/StartHeader';
+import ResourcePreLoader from './components/ResourcePreLoader';
+
+const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
+const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
 
 const App: React.FC = () => {
   const classes = {
@@ -48,16 +52,21 @@ const App: React.FC = () => {
   useObserver(() => {
     switch (store.activePage) {
       case 'select':
-        page = <SelectPage/>; break;
+        page = <SelectPage/>;
+        break;
       case 'game':
-        page = <GamePage/>; break;
+        page = <GamePage/>;
+        break;
       case 'game-end':
-        page = <EndGamePage/>; break;
+        page = <EndGamePage/>;
+        break;
       case 'credits':
-        page = <CreditsPage/>; break;
+        page = <CreditsPage/>;
+        break;
       case 'intro':
       default:
-        page = <IntroPage/>; break;
+        page = <IntroPage/>;
+        break;
     }
   });
   
@@ -82,22 +91,12 @@ const App: React.FC = () => {
           </MessageBox>
         </div>
       </div>
-      
+      {
+        IS_MOBILE &&  // pre load static resources on app load (mobile only)
+        <ResourcePreLoader/>
+      }
     </StoreContext.Provider>
   ));
 };
 
 export default App;
-
-const msgs = [
-  'הלו הלו, זה פרטי, למה להציץ?!',
-  'זהירות כלב נושך',
-  'למכירה: פומרניאן יד 2 במצב טוב',
-  'טרילילי טרה לה לה טרילילי',
-];
-
-const index = Math.floor(Math.random() * msgs.length);
-
-console.log(`%c${msgs[index]}`, 'color: red; font-size: 60px; font-weight: bold;');
-console.log('%cפשוט תגידו שאתם רוצים לראות את הקוד...', 'color: red; font-size: 30px; font-weight: bold;');
-console.log('https://github.com/yuvalbl/knesset-runner');

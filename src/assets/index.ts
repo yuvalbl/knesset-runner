@@ -83,6 +83,7 @@ export const preLoad = [
   buttonYouDigYou,
   buttonShareFacebook,
   buttonShareTwitter,
+  buttonShareWhatsApp,
   //characters
   bibiGrayScale,
   bibiColor,
@@ -99,5 +100,5 @@ export const preLoad = [
   shakedGrayScale,
   shakedColor,
   udaGrayScale,
-  udaColor
+  udaColor,
 ];
