@@ -33,7 +33,7 @@ const GamePage: React.FC<IProps> = () => {
       flexDirection: 'column' as 'column',
       width: '94%',
       maxWidth: 600,
-      padding: 5,
+      padding: '0 5px',
     },
     messageBox: {
       display: 'flex',

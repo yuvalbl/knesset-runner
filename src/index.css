@@ -14,6 +14,13 @@ body {
     font-size: 14px;
 }
 
+@media (min-width: 640px) {
+    body {
+        font-size: 18px;
+    }
+}
+
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -50,23 +57,8 @@ a, a:hover, a:active, a:visited {
     }
 }
 
-
-.mobileOnly {
-    display: block;
-    height: 100%;
-    width: 100%;
-}
-
-.mobileOnlyMessage {
-    display: none;
-}
-
-@media (min-width: 820px) {
-    .mobileOnly {
-        display: none;
-    }
-
-    .mobileOnlyMessage {
-        display: block;
+@media (min-width: 640px) {
+    .mt-md-20 {
+        margin-top: 20px;
     }
 }

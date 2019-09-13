@@ -64,7 +64,7 @@ const SelectPage: React.FC<IProps> = () => {
   };
   
   return useObserver(() => (
-    <div style={styles.container}>
+    <div style={styles.container} className="mt-md-20">
       <header style={styles.header}>
         <img style={styles.headerImg} src={selectCharacterTitle} alt=""/>
       </header>

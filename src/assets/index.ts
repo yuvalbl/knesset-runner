@@ -15,6 +15,7 @@ import gameTitleStart from './elements/gametitle-start.svg'
 import gameTitleEnd from './elements/gametitle-end.svg'
 import selectCharacterTitle from './elements/title-choose-character.svg'
 import pressStartTitle from './elements/title-pressstart.svg'
+import pressStartSpaceTitle from './elements/title-press-space.svg'
 import creditTitle from './elements/title-credits.svg'
 import rotationTitle from './elements/title-rotation.svg'
 import bibGodTitle from './elements/title-bibi-god.svg'
@@ -56,6 +57,7 @@ export {
   gameTitleEnd,
   selectCharacterTitle,
   pressStartTitle,
+  pressStartSpaceTitle,
   creditTitle,
   rotationTitle,
   // characters

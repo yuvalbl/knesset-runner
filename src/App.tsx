@@ -9,12 +9,7 @@ import SelectPage from './pages/SelectPage';
 import EndGamePage from './pages/EndGamePage';
 import {store, StoreContext} from './store/storeConfig';
 import {useObserver} from 'mobx-react-lite';
-import MessageBox from './components/MessageBox';
-import StartHeader from './components/StartHeader';
 import ResourcePreLoader from './components/ResourcePreLoader';
-
-const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
-const IS_MOBILE = /Android/.test(window.navigator.userAgent) || IS_IOS;
 
 const App: React.FC = () => {
   const classes = {
@@ -37,6 +32,9 @@ const App: React.FC = () => {
       minHeight: '100vh',
       flexDirection: 'column' as 'column',
       alignItems: 'center',
+      width: '100%',
+      maxWidth: 600,
+      margin: 'auto'
     },
     mobileOnlyMessageBox: {
       margin: 30
@@ -74,27 +72,12 @@ const App: React.FC = () => {
     <StoreContext.Provider value={store}>
       
       <div style={classes.background}>
-        <div className="mobileOnly">
-          <main dir="rtl" id="main" style={classes.main}>
-            {page}
-          </main>
-        </div>
-        
-        <div className="mobileOnlyMessage">
-          <StartHeader/>
-          <MessageBox extraStyles={classes.mobileOnlyMessageBox}>
-            <p style={classes.mobileOnlyMessageInner}>
-              מצטערים, שרפנו את התקציב שלנו על קמפיין בחירות.
-              <br/>
-              המשחק זמין כרגע רק בטלפונים ניידים.
-            </p>
-          </MessageBox>
-        </div>
+        <main dir="rtl" id="main" style={classes.main}>
+          {page}
+        </main>
       </div>
-      {
-        IS_MOBILE &&  // pre load static resources on app load (mobile only)
-        <ResourcePreLoader/>
-      }
+      
+      <ResourcePreLoader/>
     </StoreContext.Provider>
   ));
 };

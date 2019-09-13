@@ -1,5 +1,8 @@
 import React from 'react';
-import {bibGodTitle, pressStartTitle, rotationTitle} from '../assets';
+import {bibGodTitle, pressStartSpaceTitle, pressStartTitle, rotationTitle} from '../assets';
+
+const IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
+const IS_MOBILE = /Android|BlackBerry|IEMobile/.test(window.navigator.userAgent) || IS_IOS;
 
 export enum TITLE {
   none,
@@ -22,7 +25,7 @@ const GameTitle: React.FC<IProps> = ({title}) => {
   let imageSrc = '';
   switch (title) {
     case TITLE.init:
-      imageSrc = pressStartTitle;
+      imageSrc = (IS_MOBILE) ? pressStartTitle : pressStartSpaceTitle;
       break;
     
     case TITLE.godMode:

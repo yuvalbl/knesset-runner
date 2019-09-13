@@ -20,7 +20,7 @@ const EndGamePage: React.FC<IProps> = () => {
   
   const styles = {
     messageBox: {
-      minWidth: '80vw',
+      minWidth: 300,
       marginBottom: 30,
       textAlign: 'center' as 'center',
     },
