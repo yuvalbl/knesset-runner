@@ -733,14 +733,15 @@ Runner.prototype = {
     }
 
     if (this.playing && !this.crashed && Runner.keycodes.DUCK[e.keyCode]) {
-      e.preventDefault();
-      if (this.tRex.jumping) {
-        // Speed drop, activated only when jump key is not pressed.
-        this.tRex.setSpeedDrop();
-      } else if (!this.tRex.jumping && !this.tRex.ducking) {
-        // Duck.
-        this.tRex.setDuck(true);
-      }
+      // KNOTE: prevent duck
+      // e.preventDefault();
+      // if (this.tRex.jumping) {
+      //   // Speed drop, activated only when jump key is not pressed.
+      //   this.tRex.setSpeedDrop();
+      // } else if (!this.tRex.jumping && !this.tRex.ducking) {
+      //   // Duck.
+      //   this.tRex.setDuck(true);
+      // }
     }
   },
 
@@ -758,8 +759,9 @@ Runner.prototype = {
     if (this.isRunning() && isjumpKey) {
       this.tRex.endJump();
     } else if (Runner.keycodes.DUCK[keyCode]) {
-      this.tRex.speedDrop = false;
-      this.tRex.setDuck(false);
+      // KNOTE: prevent duck
+      // this.tRex.speedDrop = false;
+      // this.tRex.setDuck(false);
     } else if (this.crashed) {
       // Check that enough time has elapsed before allowing jump key to restart.
       var deltaTime = getTimeStamp() - this.time;

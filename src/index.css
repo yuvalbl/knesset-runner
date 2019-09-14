@@ -57,8 +57,17 @@ a, a:hover, a:active, a:visited {
     }
 }
 
+.canvasExtraBorder {
+    height: 16px;
+}
+
 @media (min-width: 640px) {
     .mt-md-20 {
         margin-top: 20px;
     }
+
+    .canvasExtraBorder {
+        height: 17px;
+    }
 }
+
