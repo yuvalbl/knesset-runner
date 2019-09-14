@@ -6,6 +6,8 @@ import GameTitle, {TITLE} from '../components/GameTitle';
 import ImageButton from '../components/ImageButton';
 import {buttonBibiFinish} from '../assets';
 
+// HIDPI require 2X size sprint (start with 'sprint-200-*')
+const IS_HIDPI = window.devicePixelRatio > 1;
 // delay before changing to game-end page
 const GAME_OVER_DELAY = 1000;
 // delay for rotation title
@@ -62,8 +64,13 @@ const GamePage: React.FC<IProps> = () => {
       padding: 20,
     }
   };
-  const resourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-200-${characterName}.png`;
-  const altResourcesUrlX2 = `${process.env.PUBLIC_URL}/runnerAssets/sprite-200-lapid.png`;
+  // if IS_HIDPI is false (standard) -  use 1X size sprint (start with 'sprint-100-*')
+  const resourcesUrlX1 = (IS_HIDPI) ? '': `${process.env.PUBLIC_URL}/runnerAssets/sprite-100-${characterName}.png`;
+  const altResourcesUrlX1 = (IS_HIDPI) ? '': `${process.env.PUBLIC_URL}/runnerAssets/sprite-100-lapid.png`;
+  
+  // if IS_HIDPI is true (retina/mobile) -  use 2X size sprint (start with 'sprint-200-*')
+  const resourcesUrlX2 = (!IS_HIDPI) ? '':`${process.env.PUBLIC_URL}/runnerAssets/sprite-200-${characterName}.png`;
+  const altResourcesUrlX2 = (!IS_HIDPI) ? '': `${process.env.PUBLIC_URL}/runnerAssets/sprite-200-lapid.png`;
   
   const onGameStart = () => {
     if (!started) {
@@ -123,11 +130,15 @@ const GamePage: React.FC<IProps> = () => {
           <div className="icon icon-offline"/>
         </div>
         <div id="offline-resources" style={{display: 'none'}}>
+          {/* basic resources*/}
+          <img id="offline-resources-1x" src={resourcesUrlX1} alt=""/>
           <img id="offline-resources-2x" src={resourcesUrlX2} alt=""/>
           {
             spriteRotation &&
             <>
-              <img id="alternative-resources-2x" src={altResourcesUrlX2} alt=""/>
+                {/*alternative resources for rotation*/}
+                <img id="alternative-resources-1x" src={altResourcesUrlX1} alt=""/>
+                <img id="alternative-resources-2x" src={altResourcesUrlX2} alt=""/>
             </>
           }
           <div id="audio-resources">

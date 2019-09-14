@@ -110,8 +110,7 @@ var DEFAULT_WIDTH = 600;
 var FPS = 60;
 
 /** @const */
-// always use 2X
-var IS_HIDPI = true//window.devicePixelRatio > 1;
+var IS_HIDPI = window.devicePixelRatio > 1;
 
 /** @const */
 var IS_IOS = /iPad|iPhone|iPod/.test(window.navigator.platform);
